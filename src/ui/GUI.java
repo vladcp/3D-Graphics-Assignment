@@ -14,23 +14,42 @@ public class GUI extends JPanel{
   JButton L1_POS1;
   JButton L1_POS2;
   JButton L1_POS3;
+  JButton SP1;
+  JButton SP2;
 
   JButton lastClickedButton = new JButton();
   public GUI(Hatch_GLEventListener hatch){
     super();
 
-    this.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 20));
+    this.setLayout(new GridLayout(3,1));
     
-    JPanel west = new JPanel();
-    west.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-    west.add(new JLabel("Light Switches"));
-    this.add(west);
+    JPanel sliders = new JPanel();
+    // sliders.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+    sliders.add(new JLabel("Light Sliders"));
+    this.add(sliders);
 
-    addLightSliders(west, hatch);
-    L1_POS1 = addButton(west, "L1_POS1", hatch);
-    L1_POS2 = addButton(west, "L1_POS2", hatch);
-    L1_POS3 = addButton(west, "L1_POS3", hatch);
-    // addButton(west, "Toggle Spotlight 2");
+    JPanel posButtons = new JPanel();
+    posButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    posButtons.add(new JLabel("Lamp Postures"));
+    // east.setBounds(10,10,300,200);
+    this.add(posButtons);
+
+    JPanel spotlights = new JPanel();
+    spotlights.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    spotlights.add(new JLabel("Spotlights"));
+    // east.setBounds(10,10,300,200);
+    this.add(spotlights);
+
+    addLightSliders(sliders, hatch);
+    L1_POS1 = addButton(posButtons, "L1_POS1", hatch);
+    L1_POS2 = addButton(posButtons, "L1_POS2", hatch);
+    L1_POS3 = addButton(posButtons, "L1_POS3", hatch);
+    L1_POS3 = addButton(posButtons, "L2_POS1", hatch);
+    L1_POS3 = addButton(posButtons, "L2_POS2", hatch);
+    L1_POS3 = addButton(posButtons, "L2_POS3", hatch);
+
+    SP1 = addButton(spotlights, "Toggle Spotlight 1", hatch);
+    SP2 = addButton(spotlights, "Toggle Spotlight 2", hatch);
   }
 
   /**
@@ -92,6 +111,18 @@ public class GUI extends JPanel{
       case "L1_POS3":
         //animate lamp 1
         hatch.getLamp1().initialiseAnimation(3);
+      break;
+      case "L2_POS1":
+        //animate lamp 1
+        hatch.getLamp2().initialiseAnimation(4);
+      break;
+      case "L2_POS2":
+        //animate lamp 1
+        hatch.getLamp2().initialiseAnimation(5);
+      break;
+      case "L2_POS3":
+        //animate lamp 1
+        hatch.getLamp2().initialiseAnimation(6);
       break;
       default:
         System.err.println(buttonName + " is not a button.");

@@ -15,7 +15,6 @@ import core.objects.final_objects.Egg;
 import core.objects.final_objects.Room;
 import core.objects.final_objects.Table;
 import core.objects.final_objects.alien_lamps.AlienLamp;
-import core.objects.final_objects.alien_lamps.LampComponent;
 import core.rendering.Material;
 import core.rendering.Mesh;
 import core.rendering.Model;
@@ -135,16 +134,14 @@ public class Hatch_GLEventListener implements GLEventListener {
     light2.render(gl);
 
     // animate lamp
-    // alienLamp1.animate(getElapsedTime());
     alienLamp1.draw(gl);
-    // alienLamp2.draw(gl);
+    alienLamp2.draw(gl);
 
     room.render(gl);
     // room.getWindow().animateTexture(getCurrentSeconds() - startTime);
-    
+
     table.render(gl);
     egg.render(gl);
-    
   }
 
   public void animateLamp1() {
@@ -170,19 +167,19 @@ public class Hatch_GLEventListener implements GLEventListener {
   private void initialiseScene(GL3 gl, List<Texture> textureList, List<Shader> shaderList, List<Mesh> meshList){
     spotlight1 = new Spotlight(gl, camera, null);
     spotlight2 = new Spotlight(gl, camera, null);
-    alienLamp1 = new AlienLamp(gl, LAMP1_POSITION, 0, camera, light1, light2, spotlight1, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD),shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp1");
-    alienLamp2 = new AlienLamp(gl, LAMP2_POSITION, 180, camera, light1, light2, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD), shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp2");
+    alienLamp1 = new AlienLamp(gl, LAMP1_POSITION, 0, camera, light1, light2, spotlight1, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD),shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp1");
+    alienLamp2 = new AlienLamp(gl, LAMP2_POSITION, 180, camera, light1, light2, spotlight2, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD), shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp2");
     
 
-    room = new Room(gl, camera, light1, light2, spotlight1, shaderList.get(Shader.SINGLE_TEXTURE), shaderList.get(Shader.ANIMATED_TEXTURE), 
+    room = new Room(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), shaderList.get(Shader.ANIMATED_TEXTURE), 
       shaderList.get(Shader.STATIC_NOLIGHT), textureList.get(TextureLibrary.FLOOR_WOOD), textureList.get(TextureLibrary.WINDOW_GROUND), 
       textureList.get(TextureLibrary.WINDOW_CLOUDS));
-    table = new Table(gl, camera, light1, light2, spotlight1, shaderList.get(Shader.SINGLE_TEXTURE), textureList.get(TextureLibrary.FLOOR_WOOD));
+    table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), textureList.get(TextureLibrary.FLOOR_WOOD));
     
     Material mat = new Material();
-    Model eggModel = new Model(gl, camera, light1, light2, spotlight1, shaderList.get(Shader.DOUBLE_TEXTURE), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
+    Model eggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.DOUBLE_TEXTURE), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
     textureList.get(TextureLibrary.EGG_SPECULAR));
-    Model baseEggModel = new Model(gl, camera, light1, light2, spotlight1, shaderList.get(Shader.SINGLE_TEXTURE), mat, null, meshList.get(1), textureList.get(TextureLibrary.CONTAINER));
+    Model baseEggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), mat, null, meshList.get(1), textureList.get(TextureLibrary.CONTAINER));
     egg = new Egg(eggModel, baseEggModel);
 
   } 

@@ -9,8 +9,8 @@ public final class Constants {
   public static final float TABLE_LENGTH = 2f;
   public static final float TABLE_HEIGHT = 2f;
   // egg dimensions
-  public static final float EGG_WIDTH = 2.8f;
-  public static final float EGG_HEIGHT = 4f;
+  public static final float EGG_WIDTH = 1.3f;
+  public static final float EGG_HEIGHT = 2f;
   public static final float EGG_BASE_HEIGHT = 0.5f;
 
   // egg Material properties
@@ -38,10 +38,22 @@ public final class Constants {
   public static final float LAMP1_POS1_HEAD = 30f;
 
   public static final float LAMP1_POS2_LOWER_ARM = 0f;
-  public static final float LAMP1_POS2_JOINT = 90f;
-  public static final float LAMP1_POS2_HEAD = 90f;
+  public static final float LAMP1_POS2_JOINT = 120f;
+  public static final float LAMP1_POS2_HEAD = 200f;
 
   public static final float LAMP1_POS3_LOWER_ARM = 90f;
-  public static final float LAMP1_POS3_JOINT = 10f;
-  public static final float LAMP1_POS3_HEAD = 10f;
+  public static final float LAMP1_POS3_JOINT = -30f;
+  public static final float LAMP1_POS3_HEAD = 20f;
+
+  public static final float LAMP2_POS1_LOWER_ARM = -60f;
+  public static final float LAMP2_POS1_JOINT = -60f;
+  public static final float LAMP2_POS1_HEAD = 30f;
+
+  public static final float LAMP2_POS2_LOWER_ARM = 0f;
+  public static final float LAMP2_POS2_JOINT = 120f;
+  public static final float LAMP2_POS2_HEAD = 200f;
+
+  public static final float LAMP2_POS3_LOWER_ARM = 90f;
+  public static final float LAMP2_POS3_JOINT = -30f;
+  public static final float LAMP2_POS3_HEAD = 20f;
 }

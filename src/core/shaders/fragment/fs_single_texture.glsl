@@ -93,6 +93,7 @@ void main() {
   result += calculateLight(light2, norm, viewDir);
 
   result += calculateSpotlight(spotlight1, norm, viewDir);
+  result += calculateSpotlight(spotlight2, norm, viewDir);
 
   fragColor = vec4(result, 1.0);
 }

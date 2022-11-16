@@ -22,12 +22,13 @@ public class Model {
 
   // TODO Spotlight
   private Spotlight spotlight1;
+  private Spotlight spotlight2;
   
   // Used for texture animation
   private float offsetX;
   private boolean offsetExists = false;
   
-  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh, Texture textureId1, Texture textureId2) {
+  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Spotlight spotlight2, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh, Texture textureId1, Texture textureId2) {
     this.mesh = mesh;
     this.material = material;
     this.modelMatrix = modelMatrix;
@@ -36,17 +37,18 @@ public class Model {
     this.light1 = light1;
     this.light2 = light2;
     this.spotlight1 = spotlight1;
+    this.spotlight2 = spotlight2;
 
     this.textureId1 = textureId1;
     this.textureId2 = textureId2;
   }
   
-  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh, Texture textureId1) {
-    this(gl, camera, light1, light2, spotlight1, shader, material, modelMatrix, mesh, textureId1, null);
+  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Spotlight spotlight2, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh, Texture textureId1) {
+    this(gl, camera, light1, light2, spotlight1, spotlight2, shader, material, modelMatrix, mesh, textureId1, null);
   }
   
-  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh) {
-    this(gl, camera, light1, light2, spotlight1, shader, material, modelMatrix, mesh, null, null);
+  public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Spotlight spotlight2, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh) {
+    this(gl, camera, light1, light2, spotlight1, spotlight2, shader, material, modelMatrix, mesh, null, null);
   }
   
   public void setModelMatrix(Mat4 m) {
@@ -93,12 +95,21 @@ public class Model {
     //TODO Spotlight(s)
     shader.setVec3(gl, "spotlight1.position", spotlight1.getPosition());
     shader.setVec3(gl, "spotlight1.direction", spotlight1.getDirection());
-
+    
     shader.setVec3(gl, "spotlight1.ambient", spotlight1.getMaterial().getAmbient());
     shader.setVec3(gl, "spotlight1.diffuse", spotlight1.getMaterial().getDiffuse());
     shader.setVec3(gl, "spotlight1.specular", spotlight1.getMaterial().getSpecular());
     shader.setFloat(gl, "spotlight1.cutOff", spotlight1.getCutOff());
     shader.setFloat(gl, "spotlight1.outerCutOff", spotlight1.getOuterCutOff());
+
+    shader.setVec3(gl, "spotlight2.position", spotlight2.getPosition());
+    shader.setVec3(gl, "spotlight2.direction", spotlight2.getDirection());
+
+    shader.setVec3(gl, "spotlight2.ambient", spotlight2.getMaterial().getAmbient());
+    shader.setVec3(gl, "spotlight2.diffuse", spotlight2.getMaterial().getDiffuse());
+    shader.setVec3(gl, "spotlight2.specular", spotlight2.getMaterial().getSpecular());
+    shader.setFloat(gl, "spotlight2.cutOff", spotlight2.getCutOff());
+    shader.setFloat(gl, "spotlight2.outerCutOff", spotlight2.getOuterCutOff());
 
     shader.setVec3(gl, "material.ambient", material.getAmbient());
     shader.setVec3(gl, "material.diffuse", material.getDiffuse());

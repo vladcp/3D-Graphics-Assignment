@@ -31,6 +31,7 @@ struct Spotlight {
 uniform Light light1;
 uniform Light light2;
 uniform Spotlight spotlight1;
+uniform Spotlight spotlight2;
 
 struct Material {
     vec3 ambient;
@@ -96,6 +97,7 @@ void main() {
     result += calculateLight(light2, norm, viewDir);
 
     result += calculateSpotlight(spotlight1, norm, viewDir);
+    result += calculateSpotlight(spotlight2, norm, viewDir);
 
     // TODO calculate spotlight
 
