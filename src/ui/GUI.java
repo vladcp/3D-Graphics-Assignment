@@ -13,6 +13,7 @@ public class GUI extends JPanel{
 
   JButton L1_POS1;
   JButton L1_POS2;
+  JButton L1_POS3;
 
   JButton lastClickedButton = new JButton();
   public GUI(Hatch_GLEventListener hatch){
@@ -28,6 +29,7 @@ public class GUI extends JPanel{
     addLightSliders(west, hatch);
     L1_POS1 = addButton(west, "L1_POS1", hatch);
     L1_POS2 = addButton(west, "L1_POS2", hatch);
+    L1_POS3 = addButton(west, "L1_POS3", hatch);
     // addButton(west, "Toggle Spotlight 2");
   }
 
@@ -43,7 +45,7 @@ public class GUI extends JPanel{
       lastClickedButton.setEnabled(true);
       button.setEnabled(false);
       lastClickedButton = button;
-      
+
       String action = button.getActionCommand();
       onButtonClick(action, hatch);
     });
@@ -86,6 +88,10 @@ public class GUI extends JPanel{
       case "L1_POS2":
         //animate lamp 1
         hatch.getLamp1().initialiseAnimation(2);
+      break;
+      case "L1_POS3":
+        //animate lamp 1
+        hatch.getLamp1().initialiseAnimation(3);
       break;
       default:
         System.err.println(buttonName + " is not a button.");

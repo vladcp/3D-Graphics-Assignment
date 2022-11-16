@@ -41,7 +41,7 @@ public final class Constants {
   public static final float LAMP1_POS2_JOINT = 90f;
   public static final float LAMP1_POS2_HEAD = 90f;
 
-  // public static final float LAMP1_POS3_LOWER_ARM;
-  // public static final float LAMP1_POS3_JOINT;
-  // public static final float LAMP1_POS3_HEAD;
+  public static final float LAMP1_POS3_LOWER_ARM = 90f;
+  public static final float LAMP1_POS3_JOINT = 10f;
+  public static final float LAMP1_POS3_HEAD = 10f;
 }

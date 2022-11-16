@@ -163,10 +163,16 @@ public class AlienLamp {
         activeEndRotationHead = LAMP1_POS1_HEAD;
       break;
       case 2:
-        // first pos of first lamp
+        // second pos of first lamp
         activeEndRotationLowerArm = LAMP1_POS2_LOWER_ARM;
         activeEndRotationJoint = LAMP1_POS2_JOINT;
         activeEndRotationHead = LAMP1_POS2_HEAD;
+      break;
+      case 3:
+        // third pos of first lamp
+        activeEndRotationLowerArm = LAMP1_POS3_LOWER_ARM;
+        activeEndRotationJoint = LAMP1_POS3_JOINT;
+        activeEndRotationHead = LAMP1_POS3_HEAD;
       break;
     }
   }
