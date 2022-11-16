@@ -14,6 +14,7 @@ public class GUI extends JPanel{
   JButton L1_POS1;
   JButton L1_POS2;
 
+  JButton lastClickedButton = new JButton();
   public GUI(Hatch_GLEventListener hatch){
     super();
 
@@ -39,9 +40,14 @@ public class GUI extends JPanel{
     JButton button = new JButton(btnName);
 
     button.addActionListener(e -> {
+      lastClickedButton.setEnabled(true);
+      button.setEnabled(false);
+      lastClickedButton = button;
+      
       String action = button.getActionCommand();
       onButtonClick(action, hatch);
     });
+
     panel.add(button);
     return button;
   }
