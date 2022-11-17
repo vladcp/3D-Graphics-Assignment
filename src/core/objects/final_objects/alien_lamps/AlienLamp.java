@@ -47,9 +47,6 @@ public class AlienLamp {
   private boolean isAnimating;
   
   private float startRotationLowerArm = 0f, startRotationJoint = -30f, startRotationHead = 0f;
-  private float endRotationLowerArm1 = -60f, endRotationJoint = -60f;
-
-  private float currentRotation;
   private float frames = 0f, maxFrames = 90f; // animation duration
 
   // CURRENT ANIMATION VARIABLES
@@ -67,7 +64,7 @@ public class AlienLamp {
     Vec3 basecolor = new Vec3(0.5f, 0.5f, 0.5f); // grey
 
     //TODO ALL materials
-    Material temporaryMaterial = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
+    Material temporaryMaterial = new Material(basecolor, basecolor, new Vec3(0.3f, 0.3f, 0.3f), 0.2f);
 
     //TODO all lamp models
     Model baseModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), cubeMesh, texture);

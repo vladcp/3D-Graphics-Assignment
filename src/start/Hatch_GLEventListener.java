@@ -164,6 +164,13 @@ public class Hatch_GLEventListener implements GLEventListener {
     return light1;
   }
 
+  public Spotlight getSpotlight1() {
+    return spotlight1;
+  }
+  public Spotlight getSpotlight2() {
+    return spotlight2;
+  }
+
   private void initialiseScene(GL3 gl, List<Texture> textureList, List<Shader> shaderList, List<Mesh> meshList){
     spotlight1 = new Spotlight(gl, camera, null);
     spotlight2 = new Spotlight(gl, camera, null);

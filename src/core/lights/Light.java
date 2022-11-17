@@ -11,8 +11,6 @@ import core.rendering.Material;
 import core.rendering.Shader;
   
 public class Light {
-
-  
   public static final float DEFAULT_INTENS_L1 = 0.4f;
   public static final float DEFAULT_INTENS_L2 = 0.4f;
   public static final float DEFAULT_LIGHT_SIZE = 0.3f;
@@ -25,6 +23,8 @@ public class Light {
   public static final Vec3 LIGHT_SPECULAR = new Vec3(0.8f, 0.8f, 0.8f);
 
   private Material material;
+  private float intensity;
+
   private Vec3 position;
   private Mat4 modelMatrix;
   private Shader shader;
@@ -84,10 +84,6 @@ public class Light {
     this.camera = camera;
   }
   
-  /*public void setPerspective(Mat4 perspective) {
-    this.perspective = perspective;
-  }*/
-
   public void render(GL3 gl, Mat4 modelMatrix) {
     // modelMatrix = new Mat4(1);
     // modelMatrix = Mat4.multiply(Mat4Transform.scale(0.3f,0.3f,0.3f),  modelMatrix);
@@ -96,6 +92,7 @@ public class Light {
     Mat4 mvpMatrix = Mat4.multiply(camera.getPerspectiveMatrix(), Mat4.multiply(camera.getViewMatrix(), modelMatrix));
     
     shader.use(gl);
+    shader.setVec3(gl, "lightIntensity", new Vec3(intensity, intensity, intensity));
     shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
   
     gl.glBindVertexArray(vertexArrayId[0]);
@@ -115,19 +112,11 @@ public class Light {
   }
 
   public void setIntensity(float intensity){
+    this.intensity = intensity;
     material.setAmbient(intensity * LIGHT_AMBIENT.x, intensity * LIGHT_AMBIENT.y, intensity * LIGHT_AMBIENT.z);
     material.setDiffuse(intensity * LIGHT_DIFFUSE.x, intensity * LIGHT_DIFFUSE.y, intensity * LIGHT_DIFFUSE.z);
     material.setSpecular(intensity * LIGHT_SPECULAR.x, intensity * LIGHT_SPECULAR.y, intensity * LIGHT_SPECULAR.z);
   }
-  //CALCULATE LIGHT POSITION
-  // private Vec3 getLightPosition() {
-  //   double elapsedTime = getSeconds()-startTime;
-  //   float x = 5.0f*(float)(Math.sin(Math.toRadians(elapsedTime*50)));
-  //   float y = 2.7f;
-  //   float z = 5.0f*(float)(Math.cos(Math.toRadians(elapsedTime*50)));
-  //   return new Vec3(x,y,z);   
-  //   //return new Vec3(5f,3.4f,5f);
-  // }
     // ***************************************************
   /* THE DATA
    */

@@ -61,9 +61,6 @@ vec3 calculateLight(Light light, vec3 norm, vec3 viewDir){
 }
 
 vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
-  // vec3 ambient = vec3(0.0, 0.0, 0.0);
-  // vec3 diffuse = vec3(0.0, 0.0, 0.0);
-  // vec3 specular = vec3(0.0, 0.0, 0.0);
   vec3 ambient = spotlight.ambient * texture(first_texture, aTexCoord).rgb;
   //diffuse
   vec3 lightDir = normalize(spotlight.position - aPos);

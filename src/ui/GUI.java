@@ -41,15 +41,15 @@ public class GUI extends JPanel{
     this.add(spotlights);
 
     addLightSliders(sliders, hatch);
-    L1_POS1 = addButton(posButtons, "L1_POS1", hatch);
-    L1_POS2 = addButton(posButtons, "L1_POS2", hatch);
-    L1_POS3 = addButton(posButtons, "L1_POS3", hatch);
-    L1_POS3 = addButton(posButtons, "L2_POS1", hatch);
-    L1_POS3 = addButton(posButtons, "L2_POS2", hatch);
-    L1_POS3 = addButton(posButtons, "L2_POS3", hatch);
+    L1_POS1 = addButton(posButtons, "L1_POS1", hatch, true);
+    L1_POS2 = addButton(posButtons, "L1_POS2", hatch, true);
+    L1_POS3 = addButton(posButtons, "L1_POS3", hatch, true);
+    L1_POS3 = addButton(posButtons, "L2_POS1", hatch, true);
+    L1_POS3 = addButton(posButtons, "L2_POS2", hatch, true);
+    L1_POS3 = addButton(posButtons, "L2_POS3", hatch, true);
 
-    SP1 = addButton(spotlights, "Toggle Spotlight 1", hatch);
-    SP2 = addButton(spotlights, "Toggle Spotlight 2", hatch);
+    SP1 = addButton(spotlights, "Toggle Spotlight 1", hatch, false);
+    SP2 = addButton(spotlights, "Toggle Spotlight 2", hatch, false);
   }
 
   /**
@@ -57,13 +57,15 @@ public class GUI extends JPanel{
    * @param panel
    * @param btnName
    */
-  private JButton addButton(JPanel panel, String btnName, Hatch_GLEventListener hatch){
+  private JButton addButton(JPanel panel, String btnName, Hatch_GLEventListener hatch, boolean disableOnClick){
     JButton button = new JButton(btnName);
 
     button.addActionListener(e -> {
-      lastClickedButton.setEnabled(true);
-      button.setEnabled(false);
-      lastClickedButton = button;
+      if (disableOnClick) {
+        lastClickedButton.setEnabled(true);
+        button.setEnabled(false);
+        lastClickedButton = button;
+      }
 
       String action = button.getActionCommand();
       onButtonClick(action, hatch);
@@ -90,8 +92,11 @@ public class GUI extends JPanel{
     JSlider light2Slider = new JSlider(MIN, MAX, CURRENT);
     panel.add(new JLabel("Light 2"));
     panel.add(light2Slider);
-    light2Slider.addChangeListener(e -> 
-      onLightSliderChange(light2Slider.getValue(), hatch.getLight2()));
+    light2Slider.addChangeListener(e -> {
+      System.out.println("Light2 : " + light2Slider.getValue());
+      onLightSliderChange(light2Slider.getValue(), hatch.getLight2());
+      System.out.println("Light2 : " + hatch.getLight2().getMaterial());
+    });
   }
 
   private void onLightSliderChange(float value, Light light){
@@ -123,6 +128,14 @@ public class GUI extends JPanel{
       case "L2_POS3":
         //animate lamp 1
         hatch.getLamp2().initialiseAnimation(6);
+      break;
+      case "Toggle Spotlight 1":
+        //animate lamp 1
+        hatch.getSpotlight1().toggle();
+      break;
+      case "Toggle Spotlight 2":
+        //animate lamp 1
+        hatch.getSpotlight2().toggle();
       break;
       default:
         System.err.println(buttonName + " is not a button.");
