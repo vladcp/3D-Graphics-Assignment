@@ -48,17 +48,17 @@ public class Table {
     leg1 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m, texture);
 
     modelMatrix = Mat4.multiply(Mat4Transform.translate(tableLength, 0, 0), modelMatrix);
-    leg2 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m);
+    leg2 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m, texture);
 
     modelMatrix = Mat4.multiply(Mat4Transform.translate(0, 0, -tableLength), modelMatrix);
-    leg3 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m);
+    leg3 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m, texture);
 
     modelMatrix = Mat4.multiply(Mat4Transform.translate(-tableLength, 0, 0), modelMatrix);
-    leg4 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m);
+    leg4 = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m, texture);
 
     modelMatrix = Mat4.multiply(Mat4Transform.scale(tableLength + .5f, .5f, tableLength+.5f), new Mat4(1));
     modelMatrix = Mat4.multiply(Mat4Transform.translate(0, tableHeight, 0), modelMatrix);
-    top = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m);
+    top = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, mat, modelMatrix, m, texture);
   }
 
   public void render(GL3 gl){

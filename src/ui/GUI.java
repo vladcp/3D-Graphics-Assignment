@@ -85,17 +85,20 @@ public class GUI extends JPanel{
     JSlider light1Slider = new JSlider(MIN, MAX, CURRENT);
     panel.add(new JLabel("Light 1"));
     panel.add(light1Slider);
-    light1Slider.addChangeListener(e -> 
-      onLightSliderChange(light1Slider.getValue(), hatch.getLight1()));
+    light1Slider.addChangeListener(e -> {
+      onLightSliderChange(light1Slider.getValue(), hatch.getLight1());
+      System.out.println("Light1 value : " + light1Slider.getValue());
+      System.out.println("Light1 material : \n" + hatch.getLight1().getMaterial());
+    });
 
     // light 2 sliders
     JSlider light2Slider = new JSlider(MIN, MAX, CURRENT);
     panel.add(new JLabel("Light 2"));
     panel.add(light2Slider);
     light2Slider.addChangeListener(e -> {
-      System.out.println("Light2 : " + light2Slider.getValue());
+      // System.out.println("Light2 value : " + light2Slider.getValue());
       onLightSliderChange(light2Slider.getValue(), hatch.getLight2());
-      System.out.println("Light2 : " + hatch.getLight2().getMaterial());
+      // System.out.println("Light2 material : \n" + hatch.getLight2().getMaterial());
     });
   }
 

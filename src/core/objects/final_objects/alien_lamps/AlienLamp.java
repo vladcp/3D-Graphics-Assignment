@@ -46,12 +46,12 @@ public class AlienLamp {
   //animation variables
   private boolean isAnimating;
   
-  private float startRotationLowerArm = 0f, startRotationJoint = -30f, startRotationHead = 0f;
+  private float startRotationLowerArm = LAMP1_POS1_LOWER_ARM, startRotationJoint = LAMP1_POS1_JOINT, startRotationHead = LAMP1_POS1_HEAD;
   private float frames = 0f, maxFrames = 90f; // animation duration
 
   // CURRENT ANIMATION VARIABLES
   private float activeEndRotationLowerArm, activeEndRotationJoint, activeEndRotationHead;
-  private float currentRotationLowerArm, currentRotationJoint, currentRotationHead;
+  private float currentRotationLowerArm = startRotationLowerArm, currentRotationJoint = startRotationJoint, currentRotationHead = startRotationHead;
 
   public AlienLamp(GL3 gl, Vec3 position, float rotationAngle, Camera camera, Light light1, Light light2, Spotlight spotlight1, 
     Spotlight spotlight2, Mesh cubeMesh, Mesh sphereMesh, Texture texture, Shader shader, String lampName){
@@ -162,6 +162,9 @@ public class AlienLamp {
 
   public void initialiseAnimation(int animation) {
     this.isAnimating = true;
+    //reset startAnglePositions
+    setStartRotations();
+    frames = 0;
     switch(animation) {
       case 1:
         // first pos of first lamp
@@ -198,7 +201,13 @@ public class AlienLamp {
       break;
     }
   }
-  // TODO
+
+  private void setStartRotations() {
+    startRotationLowerArm = currentRotationLowerArm;
+    startRotationJoint = currentRotationJoint;
+    startRotationHead = currentRotationHead;
+  }
+
   public void animate() {
     if (frames > maxFrames) {
       isAnimating = false;

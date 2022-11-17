@@ -138,7 +138,7 @@ public class Hatch_GLEventListener implements GLEventListener {
     alienLamp2.draw(gl);
 
     room.render(gl);
-    // room.getWindow().animateTexture(getCurrentSeconds() - startTime);
+    room.getWindow().animateTexture(getCurrentSeconds() - startTime);
 
     table.render(gl);
     egg.render(gl);
@@ -174,14 +174,14 @@ public class Hatch_GLEventListener implements GLEventListener {
   private void initialiseScene(GL3 gl, List<Texture> textureList, List<Shader> shaderList, List<Mesh> meshList){
     spotlight1 = new Spotlight(gl, camera, null);
     spotlight2 = new Spotlight(gl, camera, null);
-    alienLamp1 = new AlienLamp(gl, LAMP1_POSITION, 0, camera, light1, light2, spotlight1, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD),shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp1");
-    alienLamp2 = new AlienLamp(gl, LAMP2_POSITION, 180, camera, light1, light2, spotlight2, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.FLOOR_WOOD), shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp2");
+    alienLamp1 = new AlienLamp(gl, LAMP1_POSITION, 0, camera, light1, light2, spotlight1, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE),shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp1");
+    alienLamp2 = new AlienLamp(gl, LAMP2_POSITION, 180, camera, light1, light2, spotlight2, spotlight2, meshList.get(1), meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE), shaderList.get(Shader.SINGLE_TEXTURE), "AlienLamp2");
     
 
     room = new Room(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), shaderList.get(Shader.ANIMATED_TEXTURE), 
-      shaderList.get(Shader.STATIC_NOLIGHT), textureList.get(TextureLibrary.FLOOR_WOOD), textureList.get(TextureLibrary.WINDOW_GROUND), 
+      shaderList.get(Shader.STATIC_NOLIGHT), textureList.get(TextureLibrary.FLOOR_TEXTURE), textureList.get(TextureLibrary.WINDOW_GROUND), 
       textureList.get(TextureLibrary.WINDOW_CLOUDS));
-    table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), textureList.get(TextureLibrary.FLOOR_WOOD));
+    table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE), textureList.get(TextureLibrary.WALL_TEXTURE));
     
     Material mat = new Material();
     Model eggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.DOUBLE_TEXTURE), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
@@ -194,8 +194,10 @@ public class Hatch_GLEventListener implements GLEventListener {
   private void initialiseLights(GL3 gl){
     light1 = new Light(gl, camera);
     light2 = new Light(gl, camera);
-    light1.setIntensity(Light.DEFAULT_INTENS_L1);
-    light2.setIntensity(Light.DEFAULT_INTENS_L1);
+    // light1.setIntensity(Light.DEFAULT_INTENS_L1);
+    light1.setIntensity(0f);
+    // light2.setIntensity(Light.DEFAULT_INTENS_L1);
+    light2.setIntensity(0f);
 
     light1.setPosition(Light.DEFAULT_POSITION_2);
     light2.setPosition(Light.DEFAULT_POSITION_1);
