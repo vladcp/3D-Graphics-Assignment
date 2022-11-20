@@ -3,8 +3,6 @@ package ui;
 import javax.swing.*;
 
 import core.lights.Light;
-import core.lights.Spotlight;
-import start.Hatch;
 import start.Hatch_GLEventListener;
 
 import java.awt.*;

@@ -15,6 +15,14 @@ import core.rendering.Shader;
 import gmaths.*;
 import static core.constants.Constants.*;
 
+/**
+ * AlienLamp class
+ * responsible for creating an animated articulated structure
+ * resembling an extraterrestrial lamp
+ * 
+ * @author Vlad Prisacariu
+ * November 2022
+ */
 public class AlienLamp {
   private NameNode root;
 
@@ -41,7 +49,7 @@ public class AlienLamp {
   // front vector of the head lamp
   // used to set the spotlight direction
   private Vec3 frontHeadVector = new Vec3(1, 0, 0);
-  private int dirAdjust = 1;
+  private int dirAdjust = 1; //differs for the two lamps
 
   //animation variables
   private boolean isAnimating;
@@ -76,8 +84,11 @@ public class AlienLamp {
     sphereJoint = new LampComponent(LampComponentName.SPHERE_JOINT, lowerArmModel);
     upperArm = new LampComponent(LampComponentName.UPPER_ARM, lowerArmModel);
     lampHead = new LampComponent(LampComponentName.HEAD, baseModel);
-    
+    earLeft = new LampComponent(LampComponentName.EAR_LEFT, lowerArmModel);
+    earRight = new LampComponent(LampComponentName.EAR_RIGHT, lowerArmModel);
+
     switch(lampName) {
+      //adjust appearance as well
       case "AlienLamp1":
         lampSpotlight = new LampComponent(LampComponentName.SPOTLIGHT, baseModel, position, spotlight1);
       break;
@@ -143,6 +154,10 @@ public class AlienLamp {
 
     translateLeftEye = new TransformNode("Translate Left Eye on Head", new Mat4(Mat4Transform.translate(LAMP_HEAD_HEIGHT - LAMP_EYE_SIZE/2f, LAMP_EYE_SIZE/2f + LAMP_HEAD_HEIGHT/2f, -LAMP_HEAD_HEIGHT/3f)));
     translateRightEye = new TransformNode("Translate Right Eye on Head", new Mat4(Mat4Transform.translate(LAMP_HEAD_HEIGHT - LAMP_EYE_SIZE/2f, LAMP_EYE_SIZE/2f + LAMP_HEAD_HEIGHT/2f, LAMP_HEAD_HEIGHT/3f)));
+    
+    translateLeftEar = new TransformNode("Translate Left Ear on Head", new Mat4(Mat4Transform.translate(-LAMP_HEAD_HEIGHT + LAMP_EYE_SIZE/2f, LAMP_EAR_LENGTH/2f + LAMP_HEAD_HEIGHT/2f, LAMP_HEAD_HEIGHT/3f)));
+    translateRightEar = new TransformNode("Translate Right Ear on Head", new Mat4(Mat4Transform.translate(-LAMP_HEAD_HEIGHT + LAMP_EYE_SIZE/2f, LAMP_EAR_LENGTH/2f + LAMP_HEAD_HEIGHT/2f, -LAMP_HEAD_HEIGHT/3f)));
+  
   }
 
   // Rotate nodes at each joint
@@ -282,6 +297,10 @@ public class AlienLamp {
                               lampHead.getNameNode().addChild(translateSpotlight);
                               lampHead.getNameNode().addChild(translateLeftEye);
                               lampHead.getNameNode().addChild(translateRightEye);
+                              lampHead.getNameNode().addChild(translateLeftEar);
+                              lampHead.getNameNode().addChild(translateRightEar);
+                                translateRightEar.addChild(earRight.getNameNode());
+                                translateLeftEar.addChild(earLeft.getNameNode());
                                 translateRightEye.addChild(eyeRight.getNameNode());
                                 translateLeftEye.addChild(eyeLeft.getNameNode());
                                 translateSpotlight.addChild(lampSpotlight.getNameNode());

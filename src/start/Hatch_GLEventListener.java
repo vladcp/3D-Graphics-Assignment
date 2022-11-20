@@ -142,6 +142,7 @@ public class Hatch_GLEventListener implements GLEventListener {
 
     table.render(gl);
     egg.render(gl);
+    egg.animate(getElapsedTime());
   }
 
   public void animateLamp1() {

@@ -5,7 +5,6 @@ import com.jogamp.common.nio.*;
 import com.jogamp.opengl.*;
 
 import core.camera.Camera;
-import core.objects.base.Cube;
 import core.objects.base.Sphere;
 import core.rendering.Material;
 import core.rendering.Shader;

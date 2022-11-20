@@ -28,6 +28,7 @@ public final class Constants {
   public static final float LAMP_TAIL_LENGTH = 1f;
 
   public static final float LAMP_EYE_SIZE = LAMP_HEAD_HEIGHT/2f;
+  public static final float LAMP_EAR_LENGTH = LAMP_HEAD_HEIGHT * 3;
 
   public static final Vec3 LAMP1_POSITION = new Vec3(-3,0,0);
   public static final Vec3 LAMP2_POSITION = new Vec3(3,0,0);

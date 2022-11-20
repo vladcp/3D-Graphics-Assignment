@@ -18,7 +18,6 @@ public class LampComponent {
   private ModelNode modelNode;
   private SpotlightNode spotlightNode;
   private TransformNode scaleNode;
-  private TransformNode rotateNode;
 
   //position is the center of the base where the lamp is placed.
   public LampComponent(LampComponentName componentName, Model model, Vec3 position, Spotlight spotlight) {
@@ -49,6 +48,12 @@ public class LampComponent {
       break;
       case EYE_RIGHT:
         constructor("Eye Right Scale", eyeLeftMatrix(), "Eye Right Model", model, "Eye Right");
+      break;
+      case EAR_LEFT:
+        constructor("Ear left Scale", earMatrix(), "Ear Left Model", model, "Eye Left");
+      break;
+      case EAR_RIGHT:
+        constructor("Ear Right Scale", earMatrix(), "Ear Right Model", model, "Eye Right");
       break;
       default:
         System.err.println("Lamp component name = " + componentName + " does not exist");
@@ -110,6 +115,11 @@ public class LampComponent {
     return matrix;
   }
 
+  public Mat4 earMatrix() {
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(LAMP_EYE_SIZE, LAMP_EAR_LENGTH, LAMP_EYE_SIZE), new Mat4(1));
+    return matrix;
+  }
+
   // for non spotlight
   private void constructor(String transformName, Mat4 modelMatrix, String modelName, Model model, String nodeName){
     nameNode = new NameNode(nodeName);
@@ -125,7 +135,7 @@ public class LampComponent {
   }
 
   
-  // make the part of the scene graph responsible with this particular component
+  // the part of the scene graph that makes this component
   private void makeSceneGraphPart(){
     nameNode.addChild(scaleNode);
     if(this.spotlightNode != null){
