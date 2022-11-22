@@ -85,8 +85,8 @@ public class GUI extends JPanel{
     panel.add(light1Slider);
     light1Slider.addChangeListener(e -> {
       onLightSliderChange(light1Slider.getValue(), hatch.getLight1());
-      System.out.println("Light1 value : " + light1Slider.getValue());
-      System.out.println("Light1 material : \n" + hatch.getLight1().getMaterial());
+      // System.out.println("Light1 value : " + light1Slider.getValue());
+      // System.out.println("Light1 material : \n" + hatch.getLight1().getMaterial());
     });
 
     // light 2 sliders

@@ -48,14 +48,45 @@ public class Egg {
     return matrix;
   }
 
+  float frame = 0, maxFrames = 90;
+  float startRotation = -20, endRotation = 20;
+  float currentStartRotation = startRotation, currentEndRotation = endRotation;
+  
+  float startSpeed = 0, endSpeed = 10f, anglewidth = 15f;
+  float sp1 = .5f, sp2 = 9.5f;
+
   public void animate(double elapsedTime) {
-    rotateEggAngle = 8f * (float)Math.sin(elapsedTime*5);
+    if(frame >= maxFrames){
+      frame = 0;
+      currentStartRotation *= -1;
+      currentEndRotation *= -1;
+      
+      float aux = startSpeed;
+      startSpeed = endSpeed;
+      endSpeed = aux;
+
+      aux = sp1; sp1 = sp2; sp2 = aux;
+      // System.out.println("Ended animation");
+    } 
+    // System.out.println("U: " + frame/maxFrames);
+    float speed = bezierCurve(frame/maxFrames, startSpeed, sp1, sp2, endSpeed);
+
+    
+    rotateEggAngle = anglewidth * (float)Math.sin(speed * 2f);
     rotateEggZ.setTransform(Mat4Transform.rotateAroundZ(rotateEggAngle));
 
-    jumpDistance  = Math.abs((float) Math.sin(elapsedTime * 2)) / 2f;
-    translateEggY.setTransform(Mat4Transform.translate(0f, jumpDistance, 0f));
+    // jumpDistance  = Math.abs((float) Math.sin(elapsedTime * 2)) / 2f;
+    // translateEggY.setTransform(Mat4Transform.translate(0f, jumpDistance, 0f));
     root.update();
+    frame ++;
   }
+
+  private float bezierCurve(float u, float p0, float p1, float p2, float p3)
+  {
+    return (float) (Math.pow(1-u,3)*p0+3*u*Math.pow(1-u,2)*p1+3*Math.pow(u,2)*(1-u)*p2
+        +Math.pow(u,3)*p3);
+  }
+  
 //TODO make scene graph for table and egg
   private void makeSceneGraph() {
     NameNode egg = new NameNode("Egg Node");
@@ -74,7 +105,7 @@ public class Egg {
     rotateEggZ = new TransformNode("Rotate Egg", 
       Mat4Transform.rotateAroundZ(30f));
     translateEggY = new TransformNode("Jump Egg", 
-      Mat4Transform.translate(0f, .5f, 0f));
+      Mat4Transform.translate(0f, 0f, 0f));
 
     root.addChild(translateOntoTable);
     translateOntoTable.addChild(base);

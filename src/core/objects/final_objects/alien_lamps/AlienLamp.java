@@ -228,6 +228,8 @@ public class AlienLamp {
       isAnimating = false;
       frames = 0;
       
+      // set the rotations to the current one for smooth 
+      // changin between animations
       startRotationLowerArm = activeEndRotationLowerArm;
       startRotationJoint = activeEndRotationJoint;
       startRotationHead = activeEndRotationHead;
