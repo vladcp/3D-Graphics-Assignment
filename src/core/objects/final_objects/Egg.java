@@ -48,18 +48,16 @@ public class Egg {
     return matrix;
   }
 
-  float frame = 0, maxFrames = 90;
+  float frame = 0, maxFrames = 100;
   float startRotation = -20, endRotation = 20;
   float currentStartRotation = startRotation, currentEndRotation = endRotation;
   
   float startSpeed = 0, endSpeed = 10f, anglewidth = 15f;
-  float sp1 = .5f, sp2 = 9.5f;
+  float sp1 = 1f, sp2 = 8f;
 
   public void animate(double elapsedTime) {
     if(frame >= maxFrames){
       frame = 0;
-      currentStartRotation *= -1;
-      currentEndRotation *= -1;
       
       float aux = startSpeed;
       startSpeed = endSpeed;
@@ -67,12 +65,11 @@ public class Egg {
 
       aux = sp1; sp1 = sp2; sp2 = aux;
       // System.out.println("Ended animation");
+      // System.out.println("Angle: " + rotateEggAngle);
     } 
-    // System.out.println("U: " + frame/maxFrames);
     float speed = bezierCurve(frame/maxFrames, startSpeed, sp1, sp2, endSpeed);
-
-    
-    rotateEggAngle = anglewidth * (float)Math.sin(speed * 2f);
+    // System.out.println("SPEED: " + speed);
+    rotateEggAngle = anglewidth * (float)Math.sin(speed * 1.8f);
     rotateEggZ.setTransform(Mat4Transform.rotateAroundZ(rotateEggAngle));
 
     // jumpDistance  = Math.abs((float) Math.sin(elapsedTime * 2)) / 2f;

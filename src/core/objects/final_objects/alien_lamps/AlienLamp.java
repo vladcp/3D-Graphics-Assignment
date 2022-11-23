@@ -53,9 +53,10 @@ public class AlienLamp {
 
   //animation variables
   private boolean isAnimating;
+  private float frames = 0f, maxFrames = 90f; // animation duration
   
   private float startRotationLowerArm = LAMP1_POS1_LOWER_ARM, startRotationJoint = LAMP1_POS1_JOINT, startRotationHead = LAMP1_POS1_HEAD;
-  private float frames = 0f, maxFrames = 90f; // animation duration
+  
 
   // CURRENT ANIMATION VARIABLES
   private float activeEndRotationLowerArm, activeEndRotationJoint, activeEndRotationHead;
@@ -161,12 +162,14 @@ public class AlienLamp {
   }
 
   // Rotate nodes at each joint
-  private TransformNode rotateLowerArm;
+  private TransformNode rotateLowerArmY;
+  private TransformNode rotateLowerArmZ;
   private TransformNode rotateJoint;
   private TransformNode rotateHead;
   
   private void initialiseRotateNodes() {
-    rotateLowerArm = new TransformNode("Rotate Lower Arm", Mat4Transform.rotateAroundY(startRotationLowerArm));
+    rotateLowerArmZ = new TransformNode("Rotate Lower Arm Z", Mat4Transform.rotateAroundZ(startRotationLowerArm));
+    rotateLowerArmY = new TransformNode("Rotate Lower Arm Y", Mat4Transform.rotateAroundY(startRotationLowerArm));
     rotateJoint = new TransformNode("Rotate Joint", Mat4Transform.rotateAroundZ(startRotationJoint));
     rotateHead = new TransformNode("Rotate Head", Mat4Transform.rotateAroundZ(startRotationHead));
 
@@ -241,7 +244,7 @@ public class AlienLamp {
     currentRotationJoint = lerp(startRotationJoint, activeEndRotationJoint, fr);
     currentRotationHead = lerp(startRotationHead, activeEndRotationHead, fr);
 
-    rotateLowerArm.setTransform(Mat4Transform.rotateAroundY(currentRotationLowerArm));
+    rotateLowerArmY.setTransform(Mat4Transform.rotateAroundY(currentRotationLowerArm));
     rotateJoint.setTransform(Mat4Transform.rotateAroundZ(currentRotationJoint));
     rotateHead.setTransform(Mat4Transform.rotateAroundZ(currentRotationHead));
 
@@ -283,8 +286,8 @@ public class AlienLamp {
     root.addChild(translateToPosition); // translates to -3, 0, 0
     translateToPosition.addChild(rotateLamp);
       rotateLamp.addChild(base.getNameNode()); // add base node
-        base.getNameNode().addChild(rotateLowerArm);
-          rotateLowerArm.addChild(translateLowerArm);
+        base.getNameNode().addChild(rotateLowerArmY);
+          rotateLowerArmY.addChild(translateLowerArm);
             translateLowerArm.addChild(lowerArm.getNameNode());
               lowerArm.getNameNode().addChild(translateJoint);
                 translateJoint.addChild(rotateJoint);

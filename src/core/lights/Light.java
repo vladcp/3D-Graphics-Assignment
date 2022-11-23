@@ -12,10 +12,7 @@ import core.rendering.Shader;
 public class Light {
   public static final float DEFAULT_INTENS_L1 = 0.4f;
   public static final float DEFAULT_INTENS_L2 = 0.4f;
-  public static final float DEFAULT_LIGHT_SIZE = 0.3f;
   
-  public static final Vec3 DEFAULT_POSITION_1 = new Vec3(-8 + DEFAULT_LIGHT_SIZE/2f, DEFAULT_LIGHT_SIZE/2f, 8);
-  public static final Vec3 DEFAULT_POSITION_2 = new Vec3(8 - DEFAULT_LIGHT_SIZE/2f, 16, -8 + DEFAULT_LIGHT_SIZE/2f);
   //general light properties
   public static final Vec3 LIGHT_AMBIENT = new Vec3(0.3f, 0.3f, 0.3f);
   public static final Vec3 LIGHT_DIFFUSE = new Vec3(1f, 0.87f, 0.7f);
@@ -69,6 +66,10 @@ public class Light {
   
   public Vec3 getPosition() {
     return position;
+  }
+
+  public float getIntensity() {
+    return this.intensity;
   }
   
   public void setMaterial(Material m) {

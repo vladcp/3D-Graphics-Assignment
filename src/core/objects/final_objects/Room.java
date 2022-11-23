@@ -24,10 +24,14 @@ public class Room {
   private Spotlight spotlight1;
   private Spotlight spotlight2;
 
-  private Texture texture_wall, texture_window_ground, texture_window_sky;
+  private Texture texture_wall, texture_floor, texture_window_ground, texture_window_sky;
   private Shader wall_shader, window_sky_shader, window_ground_shader;
 
-  public Room(GL3 gl, Camera c, Light light1, Light light2, Spotlight spotlight1, Spotlight spotlight2, Shader wall_shader, Shader window_shader, Shader window_ground_shader, Texture texture_wall, Texture texture_window_ground, Texture texture_window_sky) {
+  public Room(GL3 gl, Camera c, Light light1, Light light2, Spotlight spotlight1, 
+    Spotlight spotlight2, Shader wall_shader, Shader window_shader, Shader window_ground_shader,
+    Texture texture_wall, Texture texture_floor, 
+    Texture texture_window_ground, Texture texture_window_sky) {
+    
     this.camera = c;
     this.light1 = light1;
     this.light2 = light2;
@@ -35,6 +39,7 @@ public class Room {
     this.spotlight2 = spotlight2;
 
     this.texture_wall = texture_wall;
+    this.texture_floor = texture_floor;
     this.texture_window_ground = texture_window_ground;
     this.texture_window_sky = texture_window_sky;
 
@@ -59,7 +64,7 @@ public class Room {
     modelMatrix = Mat4.multiply(Mat4Transform.scale(WALL_SIZE,1f,WALL_SIZE), modelMatrix);
     Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
     Shader shader = wall_shader;
-    Model model = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, material, modelMatrix, mesh, texture_wall);
+    Model model = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, material, modelMatrix, mesh, texture_floor);
     return model;
   }
  // right wall

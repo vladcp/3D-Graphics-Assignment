@@ -19,7 +19,7 @@ public class GUI extends JPanel{
   public GUI(Hatch_GLEventListener hatch){
     super();
 
-    this.setLayout(new GridLayout(3,1));
+    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
     
     JPanel sliders = new JPanel();
     // sliders.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
@@ -77,16 +77,15 @@ public class GUI extends JPanel{
    * @param panel
    */
   private void addLightSliders(JPanel panel, Hatch_GLEventListener hatch){
-    final int MIN = 0, MAX = 100, CURRENT = (int) Light.DEFAULT_INTENS_L1 * 100;
+    final int MIN = 0, MAX = 100, CURRENT = (int) (Light.DEFAULT_INTENS_L1 * 100);
     
     // light 1 sliders
     JSlider light1Slider = new JSlider(MIN, MAX, CURRENT);
     panel.add(new JLabel("Light 1"));
     panel.add(light1Slider);
     light1Slider.addChangeListener(e -> {
+      System.out.println("slider1 : " + light1Slider.getValue());
       onLightSliderChange(light1Slider.getValue(), hatch.getLight1());
-      // System.out.println("Light1 value : " + light1Slider.getValue());
-      // System.out.println("Light1 material : \n" + hatch.getLight1().getMaterial());
     });
 
     // light 2 sliders
@@ -94,14 +93,14 @@ public class GUI extends JPanel{
     panel.add(new JLabel("Light 2"));
     panel.add(light2Slider);
     light2Slider.addChangeListener(e -> {
-      // System.out.println("Light2 value : " + light2Slider.getValue());
       onLightSliderChange(light2Slider.getValue(), hatch.getLight2());
-      // System.out.println("Light2 material : \n" + hatch.getLight2().getMaterial());
     });
   }
 
   private void onLightSliderChange(float value, Light light){
     light.setIntensity(value / 100f);
+    System.out.println("Value: " + value/100f);
+    System.out.println("Material: " + light.getMaterial());
   }
 
   public void onButtonClick(String buttonName, Hatch_GLEventListener hatch) {
