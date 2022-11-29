@@ -49,24 +49,24 @@ public class AlienLamp {
   // front vector of the head lamp
   // used to set the spotlight direction
   private Vec3 frontHeadVector = new Vec3(1, 0, 0);
-  private int dirAdjust = 1; //differs for the two lamps
+  private int spotlightDirAdjust = 1; //differs for the two lamps
 
   //animation variables
   private boolean isAnimating;
   private float frames = 0f, maxFrames = 90f; // animation duration
   
-  private float startRotationLowerArm = LAMP1_POS1_LOWER_ARM, startRotationJoint = LAMP1_POS1_JOINT, startRotationHead = LAMP1_POS1_HEAD;
-  
+  private float startRotationLowerArmY = LAMP1_POS1_LOWER_ARM_Y, startRotationJoint = LAMP1_POS1_JOINT, startRotationHead = LAMP1_POS1_HEAD;
+  private float startRotationLowerArmZ = LAMP1_POS1_LOWER_ARM_Z;
 
   // CURRENT ANIMATION VARIABLES
-  private float activeEndRotationLowerArm, activeEndRotationJoint, activeEndRotationHead;
-  private float currentRotationLowerArm = startRotationLowerArm, currentRotationJoint = startRotationJoint, currentRotationHead = startRotationHead;
+  private float activeEndRotationLowerArmY, activeEndRotationLowerArmZ, activeEndRotationJoint, activeEndRotationHead;
+  private float currentRotationLowerArmY = startRotationLowerArmY, 
+  currentRotationJoint = startRotationJoint, currentRotationHead = startRotationHead,
+  currentRotationLowerArmZ = startRotationLowerArmZ;
 
-  public AlienLamp(GL3 gl, Vec3 position, float rotationAngle, Camera camera, Light light1, Light light2, Spotlight spotlight1, 
+
+  public AlienLamp(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, 
     Spotlight spotlight2, Mesh cubeMesh, Mesh sphereMesh, Texture texture, Shader shader, String lampName){
-
-    this.rotateLamp = new TransformNode("Rotate ALL ("+ rotationAngle + ")", new Mat4(Mat4Transform.rotateAroundY(rotationAngle)));
-    this.translateToPosition = new TransformNode("Place at position + (" + position + ")", new Mat4(Mat4Transform.translate(position)));
     
     root = new NameNode(lampName);
     
@@ -87,29 +87,50 @@ public class AlienLamp {
     lampHead = new LampComponent(LampComponentName.HEAD, baseModel);
     earLeft = new LampComponent(LampComponentName.EAR_LEFT, lowerArmModel);
     earRight = new LampComponent(LampComponentName.EAR_RIGHT, lowerArmModel);
-
-    switch(lampName) {
-      //adjust appearance as well
-      case "AlienLamp1":
-        lampSpotlight = new LampComponent(LampComponentName.SPOTLIGHT, baseModel, position, spotlight1);
-      break;
-      case "AlienLamp2":
-        dirAdjust = -1;
-        lampSpotlight = new LampComponent(LampComponentName.SPOTLIGHT, baseModel, position, spotlight2);
-      break;
-    }
     
     tail = new LampComponent(LampComponentName.TAIL, baseModel);
     eyeLeft = new LampComponent(LampComponentName.EYE_LEFT, lowerArmModel);
     eyeRight = new LampComponent(LampComponentName.EYE_RIGHT, lowerArmModel);
 
+    switch(lampName) {
+      //adjust appearance as well
+      case "AlienLamp1":
+        this.rotateLamp = new TransformNode("Rotate ALL ("+ LAMP1_ROTATION + " degrees)", new Mat4(Mat4Transform.rotateAroundY(LAMP1_ROTATION)));
+        this.translateToPosition = new TransformNode("Place at position + (" + LAMP1_POSITION + ")", new Mat4(Mat4Transform.translate(LAMP1_POSITION)));
+        
+        startRotationLowerArmY = LAMP1_POS1_LOWER_ARM_Y;
+        startRotationLowerArmZ = LAMP1_POS1_LOWER_ARM_Z;
+        startRotationHead = LAMP1_POS1_HEAD;
+        startRotationJoint = LAMP1_POS1_JOINT;
+
+        lampSpotlight = new LampComponent(LampComponentName.SPOTLIGHT, baseModel, LAMP1_POSITION, spotlight1);
+      break;
+      case "AlienLamp2":
+        this.rotateLamp = new TransformNode("Rotate ALL ("+ LAMP2_ROTATION + " degrees)", new Mat4(Mat4Transform.rotateAroundY(LAMP2_ROTATION)));
+        this.translateToPosition = new TransformNode("Place at position + (" + LAMP2_POSITION + ")", new Mat4(Mat4Transform.translate(LAMP2_POSITION)));
+        
+        startRotationLowerArmY = LAMP2_POS1_LOWER_ARM_Y;
+        startRotationLowerArmZ = LAMP2_POS1_LOWER_ARM_Z;
+        startRotationHead = LAMP2_POS1_HEAD;
+        startRotationJoint = LAMP2_POS1_JOINT;
+
+        spotlightDirAdjust = -1;
+        lampSpotlight = new LampComponent(LampComponentName.SPOTLIGHT, baseModel, LAMP2_POSITION, spotlight2);
+      break;
+    }
+
+    currentRotationHead = startRotationHead;
+    currentRotationJoint = startRotationJoint;
+    currentRotationLowerArmY = startRotationLowerArmY;
+    currentRotationLowerArmZ = startRotationLowerArmZ;
+    
     initialiseTransformNodes();
     initialiseRotateNodes();
 
     makeSceneGraph();
 
     this.isAnimating = false;
-    // root.print(2, false);
+    root.print(2, false);
   }
 
   public double getCurrentSeconds() {
@@ -168,13 +189,13 @@ public class AlienLamp {
   private TransformNode rotateHead;
   
   private void initialiseRotateNodes() {
-    rotateLowerArmZ = new TransformNode("Rotate Lower Arm Z", Mat4Transform.rotateAroundZ(startRotationLowerArm));
-    rotateLowerArmY = new TransformNode("Rotate Lower Arm Y", Mat4Transform.rotateAroundY(startRotationLowerArm));
+    rotateLowerArmZ = new TransformNode("Rotate Lower Arm Z", Mat4Transform.rotateAroundZ(startRotationLowerArmZ));
+    rotateLowerArmY = new TransformNode("Rotate Lower Arm Y", Mat4Transform.rotateAroundY(startRotationLowerArmY));
     rotateJoint = new TransformNode("Rotate Joint", Mat4Transform.rotateAroundZ(startRotationJoint));
     rotateHead = new TransformNode("Rotate Head", Mat4Transform.rotateAroundZ(startRotationHead));
 
     // update spotlight direction
-    updateSpotlightDirection(startRotationLowerArm, startRotationJoint);
+    updateSpotlightDirection(startRotationLowerArmY, startRotationJoint + startRotationHead + startRotationLowerArmZ);
     updateSpotlightPosition();
   }
 
@@ -186,34 +207,40 @@ public class AlienLamp {
     switch(animation) {
       case 1:
         // first pos of first lamp
-        activeEndRotationLowerArm = LAMP1_POS1_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP1_POS1_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP1_POS1_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP1_POS1_JOINT;
         activeEndRotationHead = LAMP1_POS1_HEAD;
       break;
       case 2:
         // second pos of first lamp
-        activeEndRotationLowerArm = LAMP1_POS2_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP1_POS2_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP1_POS2_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP1_POS2_JOINT;
         activeEndRotationHead = LAMP1_POS2_HEAD;
       break;
       case 3:
         // third pos of first lamp
-        activeEndRotationLowerArm = LAMP1_POS3_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP1_POS3_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP1_POS3_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP1_POS3_JOINT;
         activeEndRotationHead = LAMP1_POS3_HEAD;
       break;
       case 4:
-        activeEndRotationLowerArm = LAMP2_POS1_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP2_POS1_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP2_POS1_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP2_POS1_JOINT;
         activeEndRotationHead = LAMP2_POS1_HEAD;
       break;
       case 5:
-        activeEndRotationLowerArm = LAMP2_POS2_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP2_POS2_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP2_POS2_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP2_POS2_JOINT;
         activeEndRotationHead = LAMP2_POS2_HEAD;
       break;
       case 6:
-        activeEndRotationLowerArm = LAMP2_POS3_LOWER_ARM;
+        activeEndRotationLowerArmY = LAMP2_POS3_LOWER_ARM_Y;
+        activeEndRotationLowerArmZ = LAMP2_POS3_LOWER_ARM_Z;
         activeEndRotationJoint = LAMP2_POS3_JOINT;
         activeEndRotationHead = LAMP2_POS3_HEAD;
       break;
@@ -221,7 +248,8 @@ public class AlienLamp {
   }
 
   private void setStartRotations() {
-    startRotationLowerArm = currentRotationLowerArm;
+    startRotationLowerArmY = currentRotationLowerArmY;
+    startRotationLowerArmZ = currentRotationLowerArmZ;
     startRotationJoint = currentRotationJoint;
     startRotationHead = currentRotationHead;
   }
@@ -233,35 +261,40 @@ public class AlienLamp {
       
       // set the rotations to the current one for smooth 
       // changin between animations
-      startRotationLowerArm = activeEndRotationLowerArm;
+      startRotationLowerArmY = activeEndRotationLowerArmY;
+      startRotationLowerArmZ = activeEndRotationLowerArmZ;
       startRotationJoint = activeEndRotationJoint;
       startRotationHead = activeEndRotationHead;
 
       return;
     }
     float fr = frames/maxFrames;
-    currentRotationLowerArm = lerp(startRotationLowerArm, activeEndRotationLowerArm, fr);
+
+    currentRotationLowerArmY = lerp(startRotationLowerArmY, activeEndRotationLowerArmY, fr);
+    currentRotationLowerArmZ = lerp(startRotationLowerArmZ, activeEndRotationLowerArmZ, fr);
     currentRotationJoint = lerp(startRotationJoint, activeEndRotationJoint, fr);
     currentRotationHead = lerp(startRotationHead, activeEndRotationHead, fr);
 
-    rotateLowerArmY.setTransform(Mat4Transform.rotateAroundY(currentRotationLowerArm));
+    rotateLowerArmY.setTransform(Mat4Transform.rotateAroundY(currentRotationLowerArmY));
+    rotateLowerArmZ.setTransform(Mat4Transform.rotateAroundZ(currentRotationLowerArmZ));
     rotateJoint.setTransform(Mat4Transform.rotateAroundZ(currentRotationJoint));
     rotateHead.setTransform(Mat4Transform.rotateAroundZ(currentRotationHead));
 
-    updateSpotlightDirection(currentRotationLowerArm, currentRotationJoint + currentRotationHead);
+    updateSpotlightDirection(currentRotationLowerArmY, currentRotationJoint + currentRotationHead + currentRotationLowerArmZ);
     root.update();
     updateSpotlightPosition();
     frames ++;
   }
 
   private void updateSpotlightDirection(float yRotation, float zRotation) {
-    updateHeadFrontVector(0f, -dirAdjust * (float)Math.toRadians(yRotation), (float)Math.toRadians(zRotation));
+    updateHeadFrontVector(0f, -spotlightDirAdjust * (float)Math.toRadians(yRotation), (float)Math.toRadians(zRotation));
     lampSpotlight.getSpotlightNode().setSpotlightDirection(frontHeadVector);
   }
 
   private void updateSpotlightPosition() {
     lampSpotlight.getSpotlightNode().setSpotlightPosition(lampSpotlight.getSpotlightNode().getWorldTransform().getLastColumn());
   }
+  
   public void setIsAnimating(boolean value) {
     this.isAnimating = value;
   }
@@ -276,7 +309,7 @@ public class AlienLamp {
     sy = Math.sin(yRotation);
     cp = Math.cos(zRotation);
     sp = Math.sin(zRotation);
-    frontHeadVector.x = dirAdjust * (float)(cy*cp);
+    frontHeadVector.x = spotlightDirAdjust * (float)(cy*cp);
     frontHeadVector.y = (float)(sp);
     frontHeadVector.z = (float)(sy*cp);
     frontHeadVector.normalize();
@@ -286,7 +319,9 @@ public class AlienLamp {
     root.addChild(translateToPosition); // translates to -3, 0, 0
     translateToPosition.addChild(rotateLamp);
       rotateLamp.addChild(base.getNameNode()); // add base node
-        base.getNameNode().addChild(rotateLowerArmY);
+        base.getNameNode().addChild(rotateLowerArmZ);
+        //add rotatelower arm z
+          rotateLowerArmZ.addChild(rotateLowerArmY);
           rotateLowerArmY.addChild(translateLowerArm);
             translateLowerArm.addChild(lowerArm.getNameNode());
               lowerArm.getNameNode().addChild(translateJoint);

@@ -177,10 +177,10 @@ public class Hatch_GLEventListener implements GLEventListener {
   private void initialiseScene(GL3 gl, List<Texture> textureList, List<Shader> shaderList, List<Mesh> meshList) {
     spotlight1 = new Spotlight(gl, camera, null);
     spotlight2 = new Spotlight(gl, camera, null);
-    alienLamp1 = new AlienLamp(gl, LAMP1_POSITION, 0, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
+    alienLamp1 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
         meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE), shaderList.get(Shader.SINGLE_TEXTURE),
         "AlienLamp1");
-    alienLamp2 = new AlienLamp(gl, LAMP2_POSITION, 180, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
+    alienLamp2 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
         meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE), shaderList.get(Shader.SINGLE_TEXTURE),
         "AlienLamp2");
 

@@ -34,32 +34,41 @@ public final class Constants {
   public static final float LAMP_EAR_LENGTH = LAMP_HEAD_HEIGHT * 3;
 
   public static final Vec3 LAMP1_POSITION = new Vec3(-4,0,0);
+  public static final float LAMP1_ROTATION = 0f;
+
   public static final Vec3 LAMP2_POSITION = new Vec3(4,0,0);
+  public static final float LAMP2_ROTATION = 180f;
 
   // Lamp Animation variables
   // Lamp 1
-  public static final float LAMP1_POS1_LOWER_ARM = 0f;
+  public static final float LAMP1_POS1_LOWER_ARM_Y = 0f;
+  public static final float LAMP1_POS1_LOWER_ARM_Z = 30f;
   public static final float LAMP1_POS1_JOINT = -15f;
   public static final float LAMP1_POS1_HEAD = 0f;
   
-  public static final float LAMP1_POS2_LOWER_ARM = -180f;
+  public static final float LAMP1_POS2_LOWER_ARM_Y = -180f;
+  public static final float LAMP1_POS2_LOWER_ARM_Z = 0f;
   public static final float LAMP1_POS2_JOINT = -60f;
   public static final float LAMP1_POS2_HEAD = 30f;
 
-  public static final float LAMP1_POS3_LOWER_ARM = 90f;
+  public static final float LAMP1_POS3_LOWER_ARM_Y = 90f;
+  public static final float LAMP1_POS3_LOWER_ARM_Z = 0f;
   public static final float LAMP1_POS3_JOINT = -30f;
   public static final float LAMP1_POS3_HEAD = 20f;
 
   // Lamp 2
-  public static final float LAMP2_POS1_LOWER_ARM = -60f;
+  public static final float LAMP2_POS1_LOWER_ARM_Y = -60f;
+  public static final float LAMP2_POS1_LOWER_ARM_Z = 0f;
   public static final float LAMP2_POS1_JOINT = -60f;
   public static final float LAMP2_POS1_HEAD = 30f;
 
-  public static final float LAMP2_POS2_LOWER_ARM = 0f;
+  public static final float LAMP2_POS2_LOWER_ARM_Y = 0f;
+  public static final float LAMP2_POS2_LOWER_ARM_Z = 0f;
   public static final float LAMP2_POS2_JOINT = -90f;
   public static final float LAMP2_POS2_HEAD = 30;
 
-  public static final float LAMP2_POS3_LOWER_ARM = 90f;
+  public static final float LAMP2_POS3_LOWER_ARM_Y = 90f;
+  public static final float LAMP2_POS3_LOWER_ARM_Z = 0f;
   public static final float LAMP2_POS3_JOINT = -30f;
   public static final float LAMP2_POS3_HEAD = 20f;
 }
