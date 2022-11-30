@@ -42,18 +42,18 @@ public final class Constants {
   // Lamp Animation variables
   // Lamp 1
   public static final float LAMP1_POS1_LOWER_ARM_Y = 0f;
-  public static final float LAMP1_POS1_LOWER_ARM_Z = 30f;
-  public static final float LAMP1_POS1_JOINT = -15f;
-  public static final float LAMP1_POS1_HEAD = 0f;
+  public static final float LAMP1_POS1_LOWER_ARM_Z = 20f;
+  public static final float LAMP1_POS1_JOINT = -45f;
+  public static final float LAMP1_POS1_HEAD = 15f;
   
   public static final float LAMP1_POS2_LOWER_ARM_Y = -180f;
-  public static final float LAMP1_POS2_LOWER_ARM_Z = 0f;
-  public static final float LAMP1_POS2_JOINT = -60f;
+  public static final float LAMP1_POS2_LOWER_ARM_Z = -30f;
+  public static final float LAMP1_POS2_JOINT = 60f;
   public static final float LAMP1_POS2_HEAD = 30f;
 
-  public static final float LAMP1_POS3_LOWER_ARM_Y = 90f;
-  public static final float LAMP1_POS3_LOWER_ARM_Z = 0f;
-  public static final float LAMP1_POS3_JOINT = -30f;
+  public static final float LAMP1_POS3_LOWER_ARM_Y = 0f;
+  public static final float LAMP1_POS3_LOWER_ARM_Z = 60f;
+  public static final float LAMP1_POS3_JOINT = -60f;
   public static final float LAMP1_POS3_HEAD = 20f;
 
   // Lamp 2
@@ -62,9 +62,9 @@ public final class Constants {
   public static final float LAMP2_POS1_JOINT = -60f;
   public static final float LAMP2_POS1_HEAD = 30f;
 
-  public static final float LAMP2_POS2_LOWER_ARM_Y = 0f;
-  public static final float LAMP2_POS2_LOWER_ARM_Z = 0f;
-  public static final float LAMP2_POS2_JOINT = -90f;
+  public static final float LAMP2_POS2_LOWER_ARM_Y = 120f;
+  public static final float LAMP2_POS2_LOWER_ARM_Z = -20f;
+  public static final float LAMP2_POS2_JOINT = -30f;
   public static final float LAMP2_POS2_HEAD = 30;
 
   public static final float LAMP2_POS3_LOWER_ARM_Y = 90f;

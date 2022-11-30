@@ -55,8 +55,8 @@ public final class TextureLibrary {
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/ground.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/sky-moving.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/container.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEgg.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEggSpecular.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEgg2.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEggSpecular2.jpg"));
 
       return textureList;
   }

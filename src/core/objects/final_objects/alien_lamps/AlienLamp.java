@@ -55,14 +55,12 @@ public class AlienLamp {
   private boolean isAnimating;
   private float frames = 0f, maxFrames = 90f; // animation duration
   
-  private float startRotationLowerArmY = LAMP1_POS1_LOWER_ARM_Y, startRotationJoint = LAMP1_POS1_JOINT, startRotationHead = LAMP1_POS1_HEAD;
-  private float startRotationLowerArmZ = LAMP1_POS1_LOWER_ARM_Z;
-
-  // CURRENT ANIMATION VARIABLES
+  // animation angles: start, end and current for interpolation
+  private float startRotationLowerArmY, startRotationJoint, startRotationHead,
+  startRotationLowerArmZ;
   private float activeEndRotationLowerArmY, activeEndRotationLowerArmZ, activeEndRotationJoint, activeEndRotationHead;
-  private float currentRotationLowerArmY = startRotationLowerArmY, 
-  currentRotationJoint = startRotationJoint, currentRotationHead = startRotationHead,
-  currentRotationLowerArmZ = startRotationLowerArmZ;
+  private float currentRotationLowerArmY, currentRotationJoint, currentRotationHead,
+  currentRotationLowerArmZ;
 
 
   public AlienLamp(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, 
@@ -128,6 +126,10 @@ public class AlienLamp {
     initialiseRotateNodes();
 
     makeSceneGraph();
+    
+    // update spotlight direction
+    updateSpotlightDirection(startRotationLowerArmY, startRotationJoint + startRotationHead + startRotationLowerArmZ);
+    updateSpotlightPosition();
 
     this.isAnimating = false;
     root.print(2, false);
@@ -144,7 +146,7 @@ public class AlienLamp {
     }
     root.draw(gl);
     // printAllModel();
-    updateSpotlightPosition();
+    // updateSpotlightPosition();
   }
 
   private TransformNode translateByHeight(float height, String name){
@@ -179,7 +181,6 @@ public class AlienLamp {
     
     translateLeftEar = new TransformNode("Translate Left Ear on Head", new Mat4(Mat4Transform.translate(-LAMP_HEAD_HEIGHT + LAMP_EYE_SIZE/2f, LAMP_EAR_LENGTH/2f + LAMP_HEAD_HEIGHT/2f, LAMP_HEAD_HEIGHT/3f)));
     translateRightEar = new TransformNode("Translate Right Ear on Head", new Mat4(Mat4Transform.translate(-LAMP_HEAD_HEIGHT + LAMP_EYE_SIZE/2f, LAMP_EAR_LENGTH/2f + LAMP_HEAD_HEIGHT/2f, -LAMP_HEAD_HEIGHT/3f)));
-  
   }
 
   // Rotate nodes at each joint
@@ -193,10 +194,6 @@ public class AlienLamp {
     rotateLowerArmY = new TransformNode("Rotate Lower Arm Y", Mat4Transform.rotateAroundY(startRotationLowerArmY));
     rotateJoint = new TransformNode("Rotate Joint", Mat4Transform.rotateAroundZ(startRotationJoint));
     rotateHead = new TransformNode("Rotate Head", Mat4Transform.rotateAroundZ(startRotationHead));
-
-    // update spotlight direction
-    updateSpotlightDirection(startRotationLowerArmY, startRotationJoint + startRotationHead + startRotationLowerArmZ);
-    updateSpotlightPosition();
   }
 
   public void initialiseAnimation(int animation) {
@@ -289,14 +286,18 @@ public class AlienLamp {
   private void updateSpotlightDirection(float yRotation, float zRotation) {
     updateHeadFrontVector(0f, -spotlightDirAdjust * (float)Math.toRadians(yRotation), (float)Math.toRadians(zRotation));
     lampSpotlight.getSpotlightNode().setSpotlightDirection(frontHeadVector);
+
+    System.out.println("SPOT DIR: " + lampSpotlight.getSpotlightNode().getDirection());
   }
 
   private void updateSpotlightPosition() {
     lampSpotlight.getSpotlightNode().setSpotlightPosition(lampSpotlight.getSpotlightNode().getWorldTransform().getLastColumn());
+
+    System.out.println("SPOT POS: " + lampSpotlight.getSpotlightNode().getPosition());
   }
-  
-  public void setIsAnimating(boolean value) {
-    this.isAnimating = value;
+
+  public void setIsAnimating(boolean animate) {
+    this.isAnimating = animate;
   }
 
   private float lerp(float min, float max, float fraction) {
@@ -319,10 +320,10 @@ public class AlienLamp {
     root.addChild(translateToPosition); // translates to -3, 0, 0
     translateToPosition.addChild(rotateLamp);
       rotateLamp.addChild(base.getNameNode()); // add base node
-        base.getNameNode().addChild(rotateLowerArmZ);
+        base.getNameNode().addChild(rotateLowerArmY);
         //add rotatelower arm z
-          rotateLowerArmZ.addChild(rotateLowerArmY);
-          rotateLowerArmY.addChild(translateLowerArm);
+          rotateLowerArmY.addChild(rotateLowerArmZ);
+          rotateLowerArmZ.addChild(translateLowerArm);
             translateLowerArm.addChild(lowerArm.getNameNode());
               lowerArm.getNameNode().addChild(translateJoint);
                 translateJoint.addChild(rotateJoint);

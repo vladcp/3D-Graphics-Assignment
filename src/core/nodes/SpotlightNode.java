@@ -25,4 +25,12 @@ public class SpotlightNode extends SGNode {
     public void setSpotlightDirection(Vec3 dir){
         spotlight.setDirection(dir);
     }
+
+    public Vec3 getDirection() {
+        return spotlight.getDirection();
+    }
+
+    public Vec3 getPosition() {
+        return spotlight.getPosition();
+    }
 } 
