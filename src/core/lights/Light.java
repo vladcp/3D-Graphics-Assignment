@@ -5,7 +5,7 @@ import com.jogamp.common.nio.*;
 import com.jogamp.opengl.*;
 
 import core.camera.Camera;
-import core.objects.base.Sphere;
+import core.objects.primitives.Sphere;
 import core.rendering.Material;
 import core.rendering.Shader;
   
@@ -22,9 +22,9 @@ public class Light {
   private float intensity;
 
   private Vec3 position;
-  private Mat4 modelMatrix;
-  private Shader shader;
-  private Camera camera;
+  protected Mat4 modelMatrix;
+  protected Shader shader;
+  protected Camera camera;
   //private Mat4 perspective;
     
   public Light(GL3 gl, Camera camera) {
@@ -92,7 +92,7 @@ public class Light {
     Mat4 mvpMatrix = Mat4.multiply(camera.getPerspectiveMatrix(), Mat4.multiply(camera.getViewMatrix(), modelMatrix));
     
     shader.use(gl);
-    shader.setVec3(gl, "lightIntensity", new Vec3(intensity * 255, intensity * 255, intensity * 255));
+    shader.setFloat(gl, "lightIntensity", intensity);
     shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
   
     gl.glBindVertexArray(vertexArrayId[0]);

@@ -1,4 +1,4 @@
-package core.objects.base;
+package core.objects.primitives;
 
 public class Sphere {
   private static final int X_LONG = 30;

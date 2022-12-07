@@ -42,8 +42,7 @@ struct Material {
   
 uniform Material material;
 
-// Calculates the light impact of the general lights
-vec3 calculateLight(Light light, vec3 norm, vec3 viewDir){
+vec3 computeLight(Light light, vec3 norm, vec3 viewDir){
   // Ambient
   vec3 ambient = light.ambient * texture(first_texture, aTexCoord).rgb;
 
@@ -60,7 +59,8 @@ vec3 calculateLight(Light light, vec3 norm, vec3 viewDir){
   return (ambient + diffuse + specular);
 }
 
-vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
+// taken from https://learnopengl.com/Lighting/Light-casters
+vec3 computeSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
   vec3 ambient = spotlight.ambient * texture(first_texture, aTexCoord).rgb;
   //diffuse
   vec3 lightDir = normalize(spotlight.position - aPos);
@@ -82,15 +82,17 @@ vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
 
   return (ambient + diffuse + specular);
 }
+
+// used for most objects in the scene
 void main() {
   vec3 norm = normalize(aNormal);
   vec3 viewDir = normalize(viewPos - aPos);
 
-  vec3 result = calculateLight(light1, norm, viewDir);
-  result += calculateLight(light2, norm, viewDir);
+  vec3 result = computeLight(light1, norm, viewDir);
+  result += computeLight(light2, norm, viewDir);
 
-  result += calculateSpotlight(spotlight1, norm, viewDir);
-  result += calculateSpotlight(spotlight2, norm, viewDir);
+  result += computeSpotlight(spotlight1, norm, viewDir);
+  result += computeSpotlight(spotlight2, norm, viewDir);
 
   fragColor = vec4(result, 1.0);
 }

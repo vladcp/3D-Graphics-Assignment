@@ -32,6 +32,8 @@ public class Spotlight extends Light{
   }
 
   public void setIntensity(float intensity) {
+    System.out.println("Spotlight shader: " + this.shader);
+    this.intensity = intensity;
     this.getMaterial().setDiffuse(intensity * LIGHT_DIFFUSE.x, intensity * LIGHT_DIFFUSE.y, intensity * LIGHT_DIFFUSE.z);
     this.getMaterial().setSpecular(intensity * LIGHT_SPECULAR.x, intensity * LIGHT_SPECULAR.y, intensity * LIGHT_SPECULAR.z);
   }

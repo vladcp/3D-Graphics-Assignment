@@ -1,6 +1,9 @@
-package core.constants;
+package core;
 import gmaths.*;
-
+/**
+ * Constants class. "Control knobs" for various aspects of the application
+ * @author Vlad Prisacariu, 2022
+ */
 public final class Constants {
   public static final float WALL_SIZE = 16f;
 
@@ -10,8 +13,8 @@ public final class Constants {
   public static final Vec3 DEFAULT_POSITION_2 = new Vec3(8 - LIGHT_SIZE/2f, 16, -8 + LIGHT_SIZE/2f);
 
   //table dimensions
-  public static final float TABLE_LENGTH = 2f;
-  public static final float TABLE_HEIGHT = 2f;
+  public static final float TABLE_LENGTH = 2.5f;
+  public static final float TABLE_HEIGHT = 2.5f;
   // egg dimensions
   public static final float EGG_WIDTH = 1.3f * 1.4f;
   public static final float EGG_HEIGHT = 2f * 1.4f;
@@ -49,17 +52,17 @@ public final class Constants {
   public static final float LAMP1_POS1_LOWER_ARM_Y = 0f;
   public static final float LAMP1_POS1_LOWER_ARM_Z = 20f;
   public static final float LAMP1_POS1_JOINT = -45f;
-  public static final float LAMP1_POS1_HEAD = 15f;
+  public static final float LAMP1_POS1_HEAD = 35f;
   
   public static final float LAMP1_POS2_LOWER_ARM_Y = -180f;
   public static final float LAMP1_POS2_LOWER_ARM_Z = -30f;
   public static final float LAMP1_POS2_JOINT = 60f;
   public static final float LAMP1_POS2_HEAD = 30f;
 
-  public static final float LAMP1_POS3_LOWER_ARM_Y = 0f;
-  public static final float LAMP1_POS3_LOWER_ARM_Z = 60f;
-  public static final float LAMP1_POS3_JOINT = -60f;
-  public static final float LAMP1_POS3_HEAD = 20f;
+  public static final float LAMP1_POS3_LOWER_ARM_Y = -45f;
+  public static final float LAMP1_POS3_LOWER_ARM_Z = -60f;
+  public static final float LAMP1_POS3_JOINT = -10f;
+  public static final float LAMP1_POS3_HEAD = -35f;
 
   // Lamp 2
   public static final float LAMP2_POS1_LOWER_ARM_Y = -60f;
@@ -75,5 +78,5 @@ public final class Constants {
   public static final float LAMP2_POS3_LOWER_ARM_Y = 0f;
   public static final float LAMP2_POS3_LOWER_ARM_Z = 5f;
   public static final float LAMP2_POS3_JOINT = -30f;
-  public static final float LAMP2_POS3_HEAD = 20f;
+  public static final float LAMP2_POS3_HEAD = 35f;
 }

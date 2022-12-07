@@ -15,7 +15,11 @@ import core.camera.CameraKeyboardInput;
 import core.camera.CameraMouseInput;
 import core.objects.final_objects.alien_lamps.AlienLamp;
 import ui.GUI;
-
+/**
+ * Entry point of the application
+ * 
+ * @author Vlad Prisacariu, 2022
+ */
 public class Hatch extends JFrame {
   private static final int WIDTH = 1024;
   private static final int HEIGHT = 768;
@@ -46,7 +50,7 @@ public class Hatch extends JFrame {
     initialiseGL();
 
     // Initialise Camera
-    initialiseCamera();
+    initialiseCameraEventListener();
 
     // Add listeners
     addListeners();
@@ -90,9 +94,9 @@ public class Hatch extends JFrame {
   }
 
   /*
-   * Set up camera
+   * Set up camera and listener
    */
-  private void initialiseCamera() {
+  private void initialiseCameraEventListener() {
     camera = new Camera(Camera.DEFAULT_POSITION, 
         Camera.DEFAULT_TARGET, Camera.DEFAULT_UP);
     glEventListener = new Hatch_GLEventListener(camera);

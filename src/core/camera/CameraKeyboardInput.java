@@ -4,8 +4,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * Camera control taken from COM3503 Online Tutorial Materials
- * by Dr Steve Maddock at The University of Sheffield, 2021.
+ * Class from COM3503 Online Tutorial
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
  *
  *
  * @author Vlad Prisacariu

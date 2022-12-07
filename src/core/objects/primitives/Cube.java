@@ -1,4 +1,4 @@
-package core.objects.base;
+package core.objects.primitives;
 /**
  * Class taken from COM3503 Online Tutorial Materials
  * by Dr Steve Maddock at The University of Sheffield, 2022.

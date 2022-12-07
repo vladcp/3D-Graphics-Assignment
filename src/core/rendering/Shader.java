@@ -28,10 +28,6 @@ public class Shader {
   /* The constructor */
   public Shader(GL3 gl, String vertexPath, String fragmentPath) {
     try {
-      // vertexShaderSource = new String(Files.readAllBytes(Paths.get("/Users/vlad-cristianprisacariu/jogl_java_3d_graphics/allcode/assignment/src/core/shaders/vertex/", vertexPath)), Charset.defaultCharset());
-      // fragmentShaderSource = new String(Files.readAllBytes(Paths.get("/Users/vlad-cristianprisacariu/jogl_java_3d_graphics/allcode/assignment/src/core/shaders/fragment/", fragmentPath)), Charset.defaultCharset());
-      String vPath = new File(vertexPath).getAbsolutePath();
-      String fPath = new File(fragmentPath).getAbsolutePath();
       vertexShaderSource = new String(Files.readAllBytes(Paths.get("core/shaders/vertex", vertexPath)), Charset.defaultCharset());
       fragmentShaderSource = new String(Files.readAllBytes(Paths.get("core/shaders/fragment", fragmentPath)), Charset.defaultCharset());
     }
@@ -115,17 +111,14 @@ public class Shader {
     return program.program();
   }
 
-  public final static int SINGLE_TEXTURE = 0;
-  public final static int ANIMATED_TEXTURE = 1;
+  public final static int GENERAL = 0;
+  public final static int ANIM_TEX_NOLIGHT = 1;
   public final static int STATIC_NOLIGHT = 2;
-  public final static int DIFFUSE_SPECULAR = 3;
+  public final static int DIFF_SPEC = 3;
   //SHADERS:
-  // 0 - not animated, lit (most objects)
-  // 1 - animated texture, made of 2 halves (window view)
-  // put all shaders in a List
   public static List<Shader> populateShaderList(GL3 gl){
     List<Shader> shaders = new ArrayList<>();
-    shaders.add(new Shader(gl, "vs_general.glsl", "fs_single_texture.glsl"));
+    shaders.add(new Shader(gl, "vs_general.glsl", "fs_general.glsl"));
     shaders.add(new Shader(gl, "vs_animated_texture.glsl", "fs_nolight.glsl")); //for the moving clouds
     shaders.add(new Shader(gl, "vs_general.glsl", "fs_nolight_static.glsl")); // for the window ground
     shaders.add(new Shader(gl, "vs_general.glsl", "fs_diffuse_specular.glsl")); // for diffuse, specular maps objects

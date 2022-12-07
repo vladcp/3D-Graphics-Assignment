@@ -3,7 +3,8 @@ package core.objects.final_objects;
 import core.rendering.Model;
 import gmaths.Mat4;
 import gmaths.Mat4Transform;
-import static core.constants.Constants.*;
+
+import static core.Constants.*;
 
 import com.jogamp.opengl.GL3;
 /**

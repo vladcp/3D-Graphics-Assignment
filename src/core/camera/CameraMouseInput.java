@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 /**
- * Camera control taken from COM3503 Online Tutorial Materials
- * by Dr Steve Maddock at The University of Sheffield, 2021.
+ * Class taken from COM3503 Online Tutorial 
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
  *
  */
 public class CameraMouseInput extends MouseMotionAdapter {

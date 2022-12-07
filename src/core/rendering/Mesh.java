@@ -6,7 +6,7 @@ import java.util.List;
 import com.jogamp.common.nio.*;
 import com.jogamp.opengl.*;
 
-import core.objects.base.*;
+import core.objects.primitives.*;
 
 public class Mesh {
   

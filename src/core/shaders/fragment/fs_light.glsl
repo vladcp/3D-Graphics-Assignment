@@ -2,9 +2,9 @@
 
 out vec4 fragColor;
 
-uniform vec3 lightIntensity;
+uniform float lightIntensity;
 
 void main() {
-  fragColor = vec4(lightIntensity, 1.0);
-  // fragColor = vec4(1.0f);
+  fragColor = vec4(1.0);
+  // fragColor = vec4(lightIntensity);
 }

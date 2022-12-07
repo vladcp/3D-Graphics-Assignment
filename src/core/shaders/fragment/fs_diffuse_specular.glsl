@@ -42,10 +42,7 @@ struct Material {
 
 uniform Material material;
 
-vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
-  // vec3 ambient = vec3(0.0, 0.0, 0.0);
-  // vec3 diffuse = vec3(0.0, 0.0, 0.0);
-  // vec3 specular = vec3(0.0, 0.0, 0.0);
+vec3 computeSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
   vec3 ambient = spotlight.ambient * texture(first_texture, aTexCoord).rgb;
   //diffuse
   vec3 lightDir = normalize(spotlight.position - aPos);
@@ -56,6 +53,8 @@ vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
   vec3 reflectDir = reflect(-lightDir, norm);
   float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
   // vec3 specular = spotlight.specular * spec * texture(first_texture, aTexCoord).rgb; 
+
+  // use specular map here
   vec3 specular = spotlight.specular * spec * texture(second_texture, aTexCoord).rgb; 
 
   // spotlight (soft edges)
@@ -67,8 +66,8 @@ vec3 calculateSpotlight(Spotlight spotlight, vec3 norm, vec3 viewDir){
 
   return (ambient + diffuse + specular);
 }
-// Calculates the light impact of the general lights
-vec3 calculateLight(Light light, vec3 norm, vec3 viewDir){
+
+vec3 computeLight(Light light, vec3 norm, vec3 viewDir){
     // Ambient
     vec3 ambient = light.ambient * texture(first_texture, aTexCoord).rgb;
 
@@ -90,16 +89,14 @@ void main() {
     vec3 norm = normalize(aNormal);
     vec3 viewDir = normalize(viewPos - aPos);
 
-    // Calculates impact of first general light
-    vec3 result = calculateLight(light1, norm, viewDir);
+    // add light 1
+    vec3 result = computeLight(light1, norm, viewDir);
+    // add light 2 
+    result += computeLight(light2, norm, viewDir);
 
-    // Calculates impact of second general light
-    result += calculateLight(light2, norm, viewDir);
-
-    result += calculateSpotlight(spotlight1, norm, viewDir);
-    result += calculateSpotlight(spotlight2, norm, viewDir);
-
-    // TODO calculate spotlight
+    // add spotlights
+    result += computeSpotlight(spotlight1, norm, viewDir);
+    result += computeSpotlight(spotlight2, norm, viewDir);
 
     fragColor = vec4(result, 1.0);
 }

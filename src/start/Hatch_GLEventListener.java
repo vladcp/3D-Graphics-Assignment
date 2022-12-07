@@ -1,5 +1,7 @@
 package start;
 
+import static core.Constants.*;
+
 import java.util.List;
 
 import com.jogamp.opengl.GL;
@@ -21,7 +23,6 @@ import core.rendering.Model;
 import core.rendering.Shader;
 import core.rendering.TextureLibrary;
 import gmaths.*;
-import static core.constants.Constants.*;
 
 /**
  * {@link GLEventListener} Class
@@ -184,27 +185,27 @@ public class Hatch_GLEventListener implements GLEventListener {
     spotlight2 = new Spotlight(gl, camera, null);
 
     alienLamp1 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
-        meshList.get(2), textureList, shaderList.get(Shader.SINGLE_TEXTURE),
+        meshList.get(2), textureList, shaderList.get(Shader.GENERAL),
         "AlienLamp1");
     alienLamp2 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
-        meshList.get(2), textureList, shaderList.get(Shader.SINGLE_TEXTURE),
+        meshList.get(2), textureList, shaderList.get(Shader.GENERAL),
         "AlienLamp2");
 
-    room = new Room(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE),
-        shaderList.get(Shader.ANIMATED_TEXTURE),
+    room = new Room(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.GENERAL),
+        shaderList.get(Shader.ANIM_TEX_NOLIGHT),
         shaderList.get(Shader.STATIC_NOLIGHT), textureList.get(TextureLibrary.WALL_TEXTURE),
         textureList.get(TextureLibrary.FLOOR_TEXTURE),
         textureList.get(TextureLibrary.WINDOW_GROUND),
         textureList.get(TextureLibrary.WINDOW_CLOUDS));
-    table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE),
+    table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.GENERAL),
         textureList.get(TextureLibrary.TABLE));
 
     Material mat = new Material();
     Model eggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2,
-        shaderList.get(Shader.DIFFUSE_SPECULAR), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
+        shaderList.get(Shader.DIFF_SPEC), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
         textureList.get(TextureLibrary.EGG_SPECULAR));
     Model baseEggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2,
-        shaderList.get(Shader.SINGLE_TEXTURE), mat, null, meshList.get(1), textureList.get(TextureLibrary.CONTAINER));
+        shaderList.get(Shader.GENERAL), mat, null, meshList.get(1), textureList.get(TextureLibrary.CONTAINER));
     egg = new Egg(eggModel, baseEggModel);
 
   }

@@ -1,17 +1,18 @@
 package core.objects.final_objects;
+import static core.Constants.*;
+
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.texture.Texture;
 
 import core.camera.Camera;
 import core.lights.Light;
 import core.lights.Spotlight;
-import core.objects.base.Surface;
+import core.objects.primitives.Surface;
 import core.rendering.Material;
 import core.rendering.Mesh;
 import core.rendering.Model;
 import core.rendering.Shader;
 import gmaths.*;
-import static core.constants.Constants.*;
 /**
  * Room class. Encapsulates a {@link Window} and two Walls
  * 
@@ -51,10 +52,15 @@ public class Room {
     this.window_sky_shader = window_shader;
     this.window_ground_shader = window_ground_shader;
 
-    walls = new Model[4];
+    walls = new Model[7];
     walls[0] = makeFloor(gl);
     walls[1] = makeWall1(gl);
     walls[2] = makeWall2(gl);
+    walls[3] = makeFrameTop(gl);
+    walls[4] = makeFrameBottom(gl);
+    walls[5] = makeFrameLeft(gl);
+    walls[6] = makeFrameRight(gl);
+
     window = new Window(makeWindow(gl), makeGroundWindow(gl));
   }
  
@@ -106,16 +112,59 @@ public class Room {
   }
 
   private Model makeWindow(GL3 gl){
-    Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
+    Material material = new Material();
     Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
     Model model = new Model(gl, camera, light1, light2, spotlight1, spotlight2, window_sky_shader, material, new Mat4(), mesh, texture_window_sky);
     return model;
   }
   private Model makeGroundWindow(GL3 gl){
-    Material material = new Material(new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.1f, 0.5f, 0.91f), new Vec3(0.3f, 0.3f, 0.3f), 4.0f);
+    Material material = new Material();
     Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
     Model model = new Model(gl, camera, light1, light2, spotlight1, spotlight2, window_ground_shader, material, new Mat4(), mesh, texture_window_ground);
     return model;
+  }
+
+  private Model makeFrameTop(GL3 gl){
+    Material material = new Material();
+    Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
+
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(WALL_SIZE, 1f, WALL_SIZE/15f), new Mat4(1));
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundX(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.translate(0f, WALL_SIZE-  WALL_SIZE/30f, -WALL_SIZE/2f), matrix);
+
+    return new Model(gl, camera, light1, light2, spotlight1, spotlight2, wall_shader, material, matrix, mesh, texture_wall);
+  }
+  private Model makeFrameBottom(GL3 gl){
+    Material material = new Material();
+    Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
+
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(WALL_SIZE, 1f, WALL_SIZE/15f), new Mat4(1));
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundX(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.translate(0f, WALL_SIZE/30f, -WALL_SIZE/2f), matrix);
+
+    return new Model(gl, camera, light1, light2, spotlight1, spotlight2, wall_shader, material, matrix, mesh, texture_wall);
+  }
+  private Model makeFrameLeft(GL3 gl){
+    Material material = new Material();
+    Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
+
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(WALL_SIZE, 1f, WALL_SIZE/15f), new Mat4(1));
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundX(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundZ(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.translate(-WALL_SIZE/2f + WALL_SIZE/30f, WALL_SIZE/2f, -WALL_SIZE/2f), matrix);
+
+    return new Model(gl, camera, light1, light2, spotlight1, spotlight2, wall_shader, material, matrix, mesh, texture_floor);
+  }
+  private Model makeFrameRight(GL3 gl){
+    Material material = new Material();
+    Mesh mesh = new Mesh(gl, Surface.VERTICES.clone(), Surface.INDICES.clone());
+
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(WALL_SIZE, 1f, WALL_SIZE/15f), new Mat4(1));
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundX(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.rotateAroundZ(90), matrix);
+    matrix = Mat4.multiply(Mat4Transform.translate(WALL_SIZE/2f - WALL_SIZE/30f, WALL_SIZE/2f, -WALL_SIZE/2f), matrix);
+
+    return new Model(gl, camera, light1, light2, spotlight1, spotlight2, wall_shader, material, matrix, mesh, texture_floor);
   }
 
   public Window getWindow(){
@@ -123,7 +172,7 @@ public class Room {
   }
 
   public void render(GL3 gl) {
-    for (int i=0; i<3; i++) {
+    for (int i=0; i < walls.length; i++) {
        walls[i].render(gl);
     }
     window.render(gl);
@@ -132,7 +181,7 @@ public class Room {
   }
 
   public void dispose(GL3 gl) {
-    for (int i=0; i<3; i++) {
+    for (int i=0; i < walls.length; i++) {
       walls[i].dispose(gl);
     }
     window.dispose(gl);

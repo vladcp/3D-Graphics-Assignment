@@ -1,19 +1,20 @@
 package core.objects.final_objects;
 
+import static core.Constants.*;
+
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.texture.Texture;
 
 import core.camera.Camera;
 import core.lights.Light;
 import core.lights.Spotlight;
-import core.objects.base.Cube;
+import core.objects.primitives.Cube;
 import core.rendering.Material;
 import core.rendering.Mesh;
 import core.rendering.Model;
 import core.rendering.Shader;
 import gmaths.Mat4;
 import gmaths.Mat4Transform;
-import static core.constants.Constants.*;
 
 public class Table {
   private Model leg1, leg2, leg3, leg4, top;

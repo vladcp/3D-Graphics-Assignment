@@ -47,7 +47,7 @@ public final class TextureLibrary {
   public static final int EGG = 5;
   public static final int EGG_SPECULAR = 6;
   public static final int PLANET = 7;
-  public static final int DROPLETS = 8;
+  public static final int WOOL = 8;
   public static final int TABLE = 9;
   public static final int JAGUAR = 10;
   public static final int SPOTTED = 11;
@@ -67,7 +67,7 @@ public final class TextureLibrary {
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/jade.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/jade_specular.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/planet.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/droplets.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/wool.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/table.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/jaguar.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/spotted.jpeg"));

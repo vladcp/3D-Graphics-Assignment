@@ -3,8 +3,10 @@ package core.objects.final_objects;
 import core.nodes.*;
 import core.rendering.Model;
 import gmaths.*;
+
+import static core.Constants.*;
+
 import com.jogamp.opengl.GL3;
-import static core.constants.Constants.*;
 
 /**
  * Egg Class

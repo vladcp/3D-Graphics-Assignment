@@ -14,8 +14,9 @@ import core.rendering.Model;
 import core.rendering.Shader;
 import core.rendering.TextureLibrary;
 import gmaths.*;
+import core.objects.final_objects.alien_lamps.LampComponent.LampComponentName;
 
-import static core.constants.Constants.*;
+import static core.Constants.*;
 
 import java.util.List;
 
@@ -85,12 +86,12 @@ public class AlienLamp {
     //TODO all lamp models
     
     //TODO all lamp parts
-    Model baseModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), cubeMesh, textureList.get(TextureLibrary.DROPLETS));
+    Model baseModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), cubeMesh, textureList.get(TextureLibrary.WOOL));
     Model lowerArmModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), sphereMesh, textureList.get(TextureLibrary.PLANET));  
     
     switch(lampName) {
       case "AlienLamp1":
-        baseModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), cubeMesh, textureList.get(TextureLibrary.DROPLETS));
+        baseModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), cubeMesh, textureList.get(TextureLibrary.WOOL));
         lowerArmModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2, shader, temporaryMaterial, new Mat4(1), sphereMesh, textureList.get(TextureLibrary.SPOTTED));  
         
         base = new LampComponent(LampComponentName.BASE, baseModel);
@@ -130,7 +131,7 @@ public class AlienLamp {
         lampHead = new LampComponent(LampComponentName.HEAD, baseModel);
         earLeft = new LampComponent(LampComponentName.EAR_LEFT, lowerArmModel);
         earRight = new LampComponent(LampComponentName.EAR_RIGHT, lowerArmModel);
-        tail = new LampComponent(LampComponentName.TAIL, baseModel);
+
         eyeLeft = new LampComponent(LampComponentName.EYE_LEFT, lowerArmModel);
         eyeRight = new LampComponent(LampComponentName.EYE_RIGHT, lowerArmModel);
 
@@ -372,7 +373,9 @@ public class AlienLamp {
   public void setIsAnimating(boolean animate) {
     this.isAnimating = animate;
   }
-
+  
+  // function and technique inspired from
+  // https://www.freecodecamp.org/news/understanding-linear-interpolation-in-ui-animations-74701eb9957c/
   private float lerp(float min, float max, float fraction) {
     return (max - min) * fraction + min;
   }
@@ -435,8 +438,8 @@ public class AlienLamp {
                 translateJoint.addChild(rotateJoint);
                   rotateJoint.addChild(sphereJoint.getNameNode());
                     sphereJoint.getNameNode().addChild(translateUpperArm);
-                    sphereJoint.getNameNode().addChild(translateTail);
-                      translateTail.addChild(tail.getNameNode());
+                    // sphereJoint.getNameNode().addChild(translateTail);
+                      // translateTail.addChild(tail.getNameNode());
                       translateUpperArm.addChild(upperArm.getNameNode());
                         upperArm.getNameNode().addChild(translateLampHead);
                         upperArm.getNameNode().addChild(translateLimbLeft);

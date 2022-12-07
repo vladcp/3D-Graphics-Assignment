@@ -1,4 +1,4 @@
-package core.objects.base;
+package core.objects.primitives;
 
 public final class Surface {
   // ***************************************************
