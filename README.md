@@ -1,4 +1,11 @@
-# 3D-Graphics-Assignment
+# 3D-Graphics-Assignment 
+
+In oder to run the program, navigate to the src folder:
+
+`cd src`
+
+Assuming the jogl path variables are set, to run the program: 
+
 javac gmaths/*.java
 javac core/*.java                                          
 javac core/camera/*.java
