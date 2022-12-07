@@ -7,7 +7,15 @@ import com.jogamp.opengl.util.texture.*;
 import core.camera.Camera;
 import core.lights.Light;
 import core.lights.Spotlight;
-
+/**
+ * Model class
+ * 
+ * adapted from COM3503 Online Tutorial Materials
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
+ * 
+ * Modified for the project requirements
+ * @author Vlad Prisacariu, 2022
+ */
 public class Model {
   
   private Mesh mesh;
@@ -20,7 +28,6 @@ public class Model {
   private Light light1;
   private Light light2;
 
-  // TODO Spotlight
   private Spotlight spotlight1;
   private Spotlight spotlight2;
   
@@ -49,6 +56,10 @@ public class Model {
   
   public Model(GL3 gl, Camera camera, Light light1, Light light2, Spotlight spotlight1, Spotlight spotlight2, Shader shader, Material material, Mat4 modelMatrix, Mesh mesh) {
     this(gl, camera, light1, light2, spotlight1, spotlight2, shader, material, modelMatrix, mesh, null, null);
+  }
+
+  public Model() {
+    this(null, null, null, null, null, null, null, null, null, null);
   }
   
   public void setModelMatrix(Mat4 m) {
@@ -82,17 +93,19 @@ public class Model {
     
     shader.setVec3(gl, "viewPos", camera.getPosition());
 
+    // general light 1
     shader.setVec3(gl, "light1.position", light1.getPosition());
     shader.setVec3(gl, "light1.ambient", light1.getMaterial().getAmbient());
     shader.setVec3(gl, "light1.diffuse", light1.getMaterial().getDiffuse());
     shader.setVec3(gl, "light1.specular", light1.getMaterial().getSpecular());
-
+    
+    // general light 2
     shader.setVec3(gl, "light2.position", light2.getPosition());
     shader.setVec3(gl, "light2.ambient", light2.getMaterial().getAmbient());
     shader.setVec3(gl, "light2.diffuse", light2.getMaterial().getDiffuse());
     shader.setVec3(gl, "light2.specular", light2.getMaterial().getSpecular());
 
-    //TODO Spotlight(s)
+    // spotlight 1
     shader.setVec3(gl, "spotlight1.position", spotlight1.getPosition());
     shader.setVec3(gl, "spotlight1.direction", spotlight1.getDirection());
     
@@ -102,6 +115,7 @@ public class Model {
     shader.setFloat(gl, "spotlight1.cutOff", spotlight1.getCutOff());
     shader.setFloat(gl, "spotlight1.outerCutOff", spotlight1.getOuterCutOff());
 
+    // spotight 2
     shader.setVec3(gl, "spotlight2.position", spotlight2.getPosition());
     shader.setVec3(gl, "spotlight2.direction", spotlight2.getDirection());
 
@@ -111,6 +125,7 @@ public class Model {
     shader.setFloat(gl, "spotlight2.cutOff", spotlight2.getCutOff());
     shader.setFloat(gl, "spotlight2.outerCutOff", spotlight2.getOuterCutOff());
 
+    // material
     shader.setVec3(gl, "material.ambient", material.getAmbient());
     shader.setVec3(gl, "material.diffuse", material.getDiffuse());
     shader.setVec3(gl, "material.specular", material.getSpecular());

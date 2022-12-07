@@ -1,5 +1,11 @@
 package gmaths;
-
+/**
+ * Mat4 class 
+ * adapted from COM3503 Online Tutorial Materials
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
+ * 
+ * @author Vlad Prisacariu
+ */
 public class Mat4 {   // row column formulation
 
   private float[][] values;
@@ -91,7 +97,7 @@ public class Mat4 {   // row column formulation
     }
     return s;
   }
-
+  // get the position of an object in a scene graph
   public Vec3 getLastColumn() {
     return new Vec3(values[0][3], values[1][3], values[2][3]);
   }

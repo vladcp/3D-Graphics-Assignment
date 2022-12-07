@@ -1,1 +1,14 @@
 # 3D-Graphics-Assignment
+javac gmaths/*.java
+javac core/constants/*.java                                          
+javac core/camera/*.java
+javac core/lights/*.java
+javac core/rendering/*.java
+javac core/nodes/*.java
+javac core/objects/base/*.java
+javac core/objects/final_objects/*.java
+javac core/objects/final_objects/alien_lamps/*.java
+javac ui/*.java
+javac start/Hatch_GLEventListener.java
+javac start/Hatch.java
+java start/Hatch.java

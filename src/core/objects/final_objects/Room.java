@@ -12,7 +12,11 @@ import core.rendering.Model;
 import core.rendering.Shader;
 import gmaths.*;
 import static core.constants.Constants.*;
-
+/**
+ * Room class. Encapsulates a {@link Window} and two Walls
+ * 
+ * @author Vlad Prisacariu, 2022
+ */
 public class Room {
 
   private Model[] walls;

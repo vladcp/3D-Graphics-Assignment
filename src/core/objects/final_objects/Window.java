@@ -6,7 +6,12 @@ import gmaths.Mat4Transform;
 import static core.constants.Constants.*;
 
 import com.jogamp.opengl.GL3;
-
+/**
+ * Window class. Contains model matrices for the moving sky
+ * and for the stationary ground underneath
+ * 
+ * @author Vlad Prisacariu, 2022
+ */
 public class Window {
   //to animate the texture
   private Model sky_model, ground_model;

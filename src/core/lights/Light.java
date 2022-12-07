@@ -92,7 +92,7 @@ public class Light {
     Mat4 mvpMatrix = Mat4.multiply(camera.getPerspectiveMatrix(), Mat4.multiply(camera.getViewMatrix(), modelMatrix));
     
     shader.use(gl);
-    shader.setVec3(gl, "lightIntensity", new Vec3(intensity, intensity, intensity));
+    shader.setVec3(gl, "lightIntensity", new Vec3(intensity * 255, intensity * 255, intensity * 255));
     shader.setFloatArray(gl, "mvpMatrix", mvpMatrix.toFloatArrayForGLSL());
   
     gl.glBindVertexArray(vertexArrayId[0]);

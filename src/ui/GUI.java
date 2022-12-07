@@ -6,7 +6,11 @@ import core.lights.Light;
 import start.Hatch_GLEventListener;
 
 import java.awt.*;
-
+/**
+ * GUI class, responsible for the appearance and behaviour
+ * of the sliders and buttons 
+ * @author Vlad Prisacariu
+ */
 public class GUI extends JPanel{
 
   JButton L1_POS1;
@@ -84,7 +88,6 @@ public class GUI extends JPanel{
     panel.add(new JLabel("Light 1"));
     panel.add(light1Slider);
     light1Slider.addChangeListener(e -> {
-      System.out.println("slider1 : " + light1Slider.getValue());
       onLightSliderChange(light1Slider.getValue(), hatch.getLight1());
     });
 
@@ -99,8 +102,6 @@ public class GUI extends JPanel{
 
   private void onLightSliderChange(float value, Light light){
     light.setIntensity(value / 100f);
-    System.out.println("Value: " + value/100f);
-    System.out.println("Material: " + light.getMaterial());
   }
 
   public void onButtonClick(String buttonName, Hatch_GLEventListener hatch) {

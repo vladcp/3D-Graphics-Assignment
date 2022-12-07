@@ -5,13 +5,14 @@ import core.rendering.Model;
 import gmaths.*;
 import com.jogamp.opengl.GL3;
 import static core.constants.Constants.*;
+
 /**
  * Egg Class
  * creates an animated egg and the stand on which it sits
+ * 
  * @author Vlad Prisacariu,
  * November 2022
  */
-
 public class Egg {
 
   private Model eggModel;
@@ -25,6 +26,14 @@ public class Egg {
   private float jumpDistance;
 
   private TransformNode translateEggY;
+
+  private enum AnimationState{
+    JUMP,
+    ROTATE,
+    STATIC
+  }
+  private AnimationState state;
+
   // rotation Nodes
   public Egg(Model eggMod, Model baseMod){
     root = new NameNode("Egg&Stand");
@@ -32,7 +41,7 @@ public class Egg {
     eggModel = eggMod;
     baseModel = baseMod;
 
-
+    state = AnimationState.STATIC;
     makeSceneGraph();
   }
 
@@ -48,7 +57,7 @@ public class Egg {
     return matrix;
   }
 
-  float frame = 0, maxFrames = 100;
+  float frame = 0, maxFrames = 50;
   float startRotation = -20, endRotation = 20;
   float currentStartRotation = startRotation, currentEndRotation = endRotation;
   
@@ -56,6 +65,40 @@ public class Egg {
   float sp1 = 1f, sp2 = 8f;
 
   public void animate(double elapsedTime) {
+    switch(state) {
+      case STATIC:
+        stay();
+      break;
+      case JUMP:
+        jump(elapsedTime);
+      break;
+      case ROTATE:
+        rotate();
+      break;
+    }
+  }
+  public void stay() {
+    if (frame >= maxFrames) {
+      frame = 0;
+      setRandAnimationState();
+    }
+    frame++;
+  }
+  public void jump(double elapsedTime) {
+    if (frame >= maxFrames) {
+      frame = 0;
+      setRandAnimationState();
+    }
+    // float bez  = bezierCurve(frame/maxFrames, 0, 2, 2, 0);
+    // jumpDistance = Math.abs((float) Math.sin(bez * 1f)) ;
+    jumpDistance = bezierCurve(frame/maxFrames, 0, 1, 3, 0);
+    translateEggY.setTransform(Mat4Transform.translate(0f, jumpDistance, 0f));
+    
+    root.update();
+
+    frame++;
+  }
+  public void rotate() {
     if(frame >= maxFrames){
       frame = 0;
       
@@ -64,14 +107,19 @@ public class Egg {
       endSpeed = aux;
 
       aux = sp1; sp1 = sp2; sp2 = aux;
+
+      setRandAnimationState();
       // System.out.println("Ended animation");
       // System.out.println("Angle: " + rotateEggAngle);
     } 
-    float speed = bezierCurve(frame/maxFrames, startSpeed, sp1, sp2, endSpeed);
-    // System.out.println("SPEED: " + speed);
-    rotateEggAngle = anglewidth * (float)Math.sin(speed * 1.8f);
+    // float speed = bezierCurve(frame/maxFrames, startSpeed, sp1, sp2, endSpeed);
+    // // System.out.println("SPEED: " + speed);
+    // rotateEggAngle = anglewidth * (float)Math.sin(speed * 1.8f);
+
+    rotateEggAngle = bezierCurve(frame/maxFrames, 0, 35, -35, 0);
     rotateEggZ.setTransform(Mat4Transform.rotateAroundZ(rotateEggAngle));
 
+    // jumpDistance  = bezierCurve(frame/maxFrames, 0, 2, 2, 0);
     // jumpDistance  = Math.abs((float) Math.sin(elapsedTime * 2)) / 2f;
     // translateEggY.setTransform(Mat4Transform.translate(0f, jumpDistance, 0f));
     root.update();
@@ -84,7 +132,13 @@ public class Egg {
         +Math.pow(u,3)*p3);
   }
   
-//TODO make scene graph for table and egg
+  private void setRandAnimationState() {
+    double rand = Math.random();
+    if (rand < 0.1) state = AnimationState.STATIC;
+    else if (rand < 0.5) state = AnimationState.JUMP;
+    else state = AnimationState.ROTATE;
+  }
+
   private void makeSceneGraph() {
     NameNode egg = new NameNode("Egg Node");
     ModelNode eggModelNode = new ModelNode("eggModelNode", eggModel);
@@ -100,7 +154,7 @@ public class Egg {
       Mat4Transform.translate(0f, TABLE_HEIGHT + .25f, 0f));
       
     rotateEggZ = new TransformNode("Rotate Egg", 
-      Mat4Transform.rotateAroundZ(30f));
+      Mat4Transform.rotateAroundZ(0f));
     translateEggY = new TransformNode("Jump Egg", 
       Mat4Transform.translate(0f, 0f, 0f));
 
@@ -123,6 +177,7 @@ public class Egg {
   }
 
   public void dispose(GL3 gl) {
-    // root.dispose
+    eggModel.dispose(gl);
+    baseModel.dispose(gl);
   }
 }

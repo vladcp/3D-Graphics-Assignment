@@ -7,7 +7,11 @@ import java.util.List;
 import com.jogamp.opengl.*;
 
 import com.jogamp.opengl.util.texture.*;
-
+/**
+ * Texture Library class,
+ * adapted from COM3503 Online Tutorial Materials
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
+ */
 public final class TextureLibrary {
 
   public static Texture loadTexture(GL3 gl3, String filename) {
@@ -42,6 +46,11 @@ public final class TextureLibrary {
   public static final int CONTAINER = 4;
   public static final int EGG = 5;
   public static final int EGG_SPECULAR = 6;
+  public static final int PLANET = 7;
+  public static final int DROPLETS = 8;
+  public static final int TABLE = 9;
+  public static final int JAGUAR = 10;
+  public static final int SPOTTED = 11;
   /**
      * Load all textures in a list
      *
@@ -50,13 +59,18 @@ public final class TextureLibrary {
     public static List<Texture> populateTextureList(GL3 gl){
       List<Texture> textureList = new ArrayList<>();
 
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/floor.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/floorTexture.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/wallTexture.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/ground.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/sky-moving.jpg"));
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/container.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEgg2.jpg"));
-      textureList.add(TextureLibrary.loadTexture(gl, "./textures/shiningEggSpecular2.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/jade.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/jade_specular.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/planet.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/droplets.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/table.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/jaguar.jpg"));
+      textureList.add(TextureLibrary.loadTexture(gl, "./textures/spotted.jpeg"));
 
       return textureList;
   }

@@ -1,6 +1,10 @@
 package core.camera;
 import gmaths.*;
-
+/**
+ * Camera class,
+ * adapted from COM3503 Online Tutorial Materials
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
+ */
 public class Camera {
   
   public enum CameraType {X, Z};

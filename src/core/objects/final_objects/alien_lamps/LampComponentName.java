@@ -12,8 +12,11 @@ public enum LampComponentName {
   EAR_LEFT("Ear Left"),
   EAR_RIGHT("Ear Right"),
   EYE_LEFT("Eye Left"),
-  EYE_RIGHT("Eye Right");
+  EYE_RIGHT("Eye Right"),
 
+  CHIN("Chin"),
+  LIMB("Limb");
+  
   public final String NAME;
   private LampComponentName(String name){
     NAME = name;

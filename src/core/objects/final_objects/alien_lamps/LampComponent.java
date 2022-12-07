@@ -11,6 +11,12 @@ import static core.constants.Constants.*;
 
 import core.lights.Spotlight;
 
+/**
+ * Helper class for building an {@link AlienLamp}
+ * It essentially provides the leaf nodes in the alien lamp scene graph
+ * i.e. the name, model and scale nodes for each primitive part of the lamp
+ * @author Vlad Prisacariu
+ */
 public class LampComponent {
   // namely: BASE, LOWER BRANCH, SPHERE JOINT, UPPER ARM, LOWER ARM, HEAD
   // note: these components might have decorations that need their own model matrices
@@ -55,6 +61,12 @@ public class LampComponent {
       case EAR_RIGHT:
         constructor("Ear Right Scale", earMatrix(), "Ear Right Model", model, "Eye Right");
       break;
+      case CHIN:
+        constructor("Chin Scale", chinMatrix(), "Chin Model", model, "Chin");
+      break;
+      case LIMB:
+        constructor("Limb Scale", limbMatrix(), "Limb Model", model, "Limb");
+      break;
       default:
         System.err.println("Lamp component name = " + componentName + " does not exist");
     }
@@ -75,7 +87,7 @@ public class LampComponent {
 
   private Mat4 lowerArmMatrix(){
     Mat4 matrix = Mat4.multiply(
-      Mat4Transform.scale(0.3f, LAMP_ARM_SIZE, 0.3f), new Mat4(1));
+      Mat4Transform.scale(LAMP_ARM_WIDTH, LAMP_ARM_LENGTH, LAMP_ARM_WIDTH), new Mat4(1));
     return matrix;
   }
 
@@ -87,7 +99,7 @@ public class LampComponent {
 
   private Mat4 upperArmMatrix(){
     Mat4 matrix = Mat4.multiply(
-      Mat4Transform.scale(0.3f, LAMP_ARM_SIZE, 0.3f), new Mat4(1));
+      Mat4Transform.scale(LAMP_ARM_WIDTH, LAMP_ARM_LENGTH, LAMP_ARM_WIDTH), new Mat4(1));
     return matrix;
   }
 
@@ -120,6 +132,15 @@ public class LampComponent {
     return matrix;
   }
 
+  public Mat4 chinMatrix() {
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(LAMP_CHIN_SIZE, LAMP_CHIN_SIZE*3f, LAMP_CHIN_SIZE), new Mat4(1));
+    return matrix;
+  }
+
+  public Mat4 limbMatrix() {
+    Mat4 matrix = Mat4.multiply(Mat4Transform.scale(LAMP_LIMP_WIDTH, LAMP_LIMB_LENGTH, LAMP_LIMP_WIDTH), new Mat4(1));
+    return matrix;
+  }
   // for non spotlight
   private void constructor(String transformName, Mat4 modelMatrix, String modelName, Model model, String nodeName){
     nameNode = new NameNode(nodeName);
@@ -134,7 +155,6 @@ public class LampComponent {
     spotlightNode = new SpotlightNode(modelName, spotlight);
   }
 
-  
   // the part of the scene graph that makes this component
   private void makeSceneGraphPart(){
     nameNode.addChild(scaleNode);

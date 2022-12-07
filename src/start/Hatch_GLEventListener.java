@@ -23,6 +23,11 @@ import core.rendering.TextureLibrary;
 import gmaths.*;
 import static core.constants.Constants.*;
 
+/**
+ * {@link GLEventListener} Class
+ * 
+ * @author Vlad Prisacariu
+ */
 public class Hatch_GLEventListener implements GLEventListener {
 
   // private static final boolean DISPLAY_SHADERS = false;
@@ -177,12 +182,12 @@ public class Hatch_GLEventListener implements GLEventListener {
   private void initialiseScene(GL3 gl, List<Texture> textureList, List<Shader> shaderList, List<Mesh> meshList) {
     spotlight1 = new Spotlight(gl, camera, null);
     spotlight2 = new Spotlight(gl, camera, null);
-    
+
     alienLamp1 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
-        meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE), shaderList.get(Shader.SINGLE_TEXTURE),
+        meshList.get(2), textureList, shaderList.get(Shader.SINGLE_TEXTURE),
         "AlienLamp1");
     alienLamp2 = new AlienLamp(gl, camera, light1, light2, spotlight1, spotlight2, meshList.get(1),
-        meshList.get(2), textureList.get(TextureLibrary.WALL_TEXTURE), shaderList.get(Shader.SINGLE_TEXTURE),
+        meshList.get(2), textureList, shaderList.get(Shader.SINGLE_TEXTURE),
         "AlienLamp2");
 
     room = new Room(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE),
@@ -192,11 +197,11 @@ public class Hatch_GLEventListener implements GLEventListener {
         textureList.get(TextureLibrary.WINDOW_GROUND),
         textureList.get(TextureLibrary.WINDOW_CLOUDS));
     table = new Table(gl, camera, light1, light2, spotlight1, spotlight2, shaderList.get(Shader.SINGLE_TEXTURE),
-        textureList.get(TextureLibrary.WALL_TEXTURE));
+        textureList.get(TextureLibrary.TABLE));
 
     Material mat = new Material();
     Model eggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2,
-        shaderList.get(Shader.DOUBLE_TEXTURE), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
+        shaderList.get(Shader.DIFFUSE_SPECULAR), mat, null, meshList.get(2), textureList.get(TextureLibrary.EGG),
         textureList.get(TextureLibrary.EGG_SPECULAR));
     Model baseEggModel = new Model(gl, camera, light1, light2, spotlight1, spotlight2,
         shaderList.get(Shader.SINGLE_TEXTURE), mat, null, meshList.get(1), textureList.get(TextureLibrary.CONTAINER));
