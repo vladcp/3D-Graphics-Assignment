@@ -1,5 +1,9 @@
 package core.objects.primitives;
-
+/**
+ * Class from COM3503 Online Tutorial
+ * by Dr Steve Maddock at The University of Sheffield, 2022.
+ *
+ */
 public class Sphere {
   private static final int X_LONG = 30;
   private static final int Y_LAT = 30;

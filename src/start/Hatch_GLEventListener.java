@@ -124,8 +124,8 @@ public class Hatch_GLEventListener implements GLEventListener {
   // private final int T_CONTAINER_SPECULAR = 1;
 
   private void initialise(GL3 gl) {
-    List<Shader> shaderList = Shader.populateShaderList(gl);
-    List<Texture> textureList = TextureLibrary.populateTextureList(gl);
+    List<Shader> shaderList = Shader.loadShadersInList(gl);
+    List<Texture> textureList = TextureLibrary.loadTexturesInList(gl);
     List<Mesh> meshList = Mesh.populateMeshList(gl);
 
     initialiseLights(gl); // needs to be done first

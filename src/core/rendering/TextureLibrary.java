@@ -52,11 +52,11 @@ public final class TextureLibrary {
   public static final int JAGUAR = 10;
   public static final int SPOTTED = 11;
   /**
-     * Load all textures in a list
+     * Preloades textures in an {@link ArrayList}
      *
      * @return texture List<Texture>
-     */
-    public static List<Texture> populateTextureList(GL3 gl){
+  */
+    public static List<Texture> loadTexturesInList(GL3 gl){
       List<Texture> textureList = new ArrayList<>();
 
       textureList.add(TextureLibrary.loadTexture(gl, "./textures/floor.jpg"));

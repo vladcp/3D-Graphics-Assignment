@@ -115,8 +115,12 @@ public class Shader {
   public final static int ANIM_TEX_NOLIGHT = 1;
   public final static int STATIC_NOLIGHT = 2;
   public final static int DIFF_SPEC = 3;
-  //SHADERS:
-  public static List<Shader> populateShaderList(GL3 gl){
+  /**
+   * Store the program shaders in a list
+   * @param gl
+   * @return {@link ArrayList} containing the used shaders
+   */
+  public static List<Shader> loadShadersInList(GL3 gl){
     List<Shader> shaders = new ArrayList<>();
     shaders.add(new Shader(gl, "vs_general.glsl", "fs_general.glsl"));
     shaders.add(new Shader(gl, "vs_animated_texture.glsl", "fs_nolight.glsl")); //for the moving clouds

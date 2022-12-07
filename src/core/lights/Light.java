@@ -8,7 +8,10 @@ import core.camera.Camera;
 import core.objects.primitives.Sphere;
 import core.rendering.Material;
 import core.rendering.Shader;
-  
+/**
+ * Light source class
+ * @author Vlad Prisacariu, 2022
+ */
 public class Light {
   public static final float DEFAULT_INTENS_L1 = 0.4f;
   public static final float DEFAULT_INTENS_L2 = 0.4f;
